@@ -30,6 +30,7 @@ Onboarding -> Autenticacion
 + Página detalle encontrado
 
 ##### Logo y nombre de la aplicacion (Reyna)
++ Modal alguien encontró a tu perro
 
 ### Workflow
 <ol>
