@@ -1,5 +1,5 @@
 # findme_base
 
-## Instrucciones
-# Entrar al proyecto y ejecutar
-npm install
+# Instrucciones
+### Entrar al proyecto y ejecutar
+<code>npm install</code>
