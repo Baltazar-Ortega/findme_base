@@ -3,9 +3,9 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
+  { path: 'dashboard-perdido', loadChildren: './tabs/tabs.module#TabsPageModule' },
   { path: 'autenticacion', loadChildren: './autenticacion/autenticacion.module#AutenticacionPageModule' },
   { path: 'detalle-perro', loadChildren: './perdidos/detalle-perro/detalle-perro.module#DetallePerroPageModule' },
-  { path: 'card', loadChildren: './perdidos/componentes/card/card.module#CardPageModule' },
   { path: 'miperfil', loadChildren: './perfil/miperfil/miperfil.module#MiperfilPageModule' },
   { path: 'userperfil', loadChildren: './perfil/userperfil/userperfil.module#UserperfilPageModule' },
   { path: 'detalle-encontrado', loadChildren: './encontrados/detalle-encontrado/detalle-encontrado.module#DetalleEncontradoPageModule' },
