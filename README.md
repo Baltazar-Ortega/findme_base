@@ -9,16 +9,35 @@
 #### Comienzo de la aplicacion
 Onboarding -> Autenticacion
 
-##### Perdidos -> Dashboard 
+##### Perdidos -> Dashboard (Cris)
 <p>Se puede ir</p>
 
-* Mi Perfil
-* Formulario crear anuncio
 * Pagina detalle de cada perro
-* Perfil de otra persona
 * Funcionalidad de cada card
-* Formulario Encontrado
 
-##### Encontrados -> Dashboard
+##### (Rodolfo)
+* Mi Perfil
+* Perfil de otra persona
+
+###### (Baltazar)
+* Formulario Encontrado
+* Formulario crear anuncio
+
+
+##### Encontrados -> Dashboard (Charlie)
 + Cards encontrados
 + Página detalle encontrado
+
+##### Logo y nombre de la aplicacion (Reyna)
+
+### Workflow
+<ol>
+  <li>UI - Todo lo visual. Usar imagenes sacadas de internet</li>
+  <li>Los datos se guardarán en arrays en los servicios, temporalmente</li>
+  <li>Implementacion de Firebase como base de datos</li>
+  <li>Autenticacion con Firebase</li>
+  <li>Adicion del feature de los mapas</li>
+  <li>onboarding</li>
+  <li>Refactorizacion del codigo para la version final</li>
+  <li>Publicacion</li>
+ </ol>
