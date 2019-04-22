@@ -4,7 +4,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
   { path: 'autenticacion', loadChildren: './autenticacion/autenticacion.module#AutenticacionPageModule' },
-  { path: 'dashboard', loadChildren: './perdidos/dashboard/dashboard.module#DashboardPageModule' },
   { path: 'detalle-perro', loadChildren: './perdidos/detalle-perro/detalle-perro.module#DetallePerroPageModule' },
   { path: 'card', loadChildren: './perdidos/componentes/card/card.module#CardPageModule' },
   { path: 'miperfil', loadChildren: './perfil/miperfil/miperfil.module#MiperfilPageModule' },
