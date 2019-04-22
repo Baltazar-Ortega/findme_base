@@ -5,6 +5,7 @@
 <code>npm install</code>
 
 ### Reparticion de tareas
+<p>La reparticion de tareas irá cambiando segun se vayan terminando cosas</p>
 
 #### Comienzo de la aplicacion
 Onboarding -> Autenticacion
@@ -19,7 +20,7 @@ Onboarding -> Autenticacion
 * Mi Perfil
 * Perfil de otra persona
 
-###### (Baltazar)
+##### (Baltazar)
 * Formulario Encontrado
 * Formulario crear anuncio
 
