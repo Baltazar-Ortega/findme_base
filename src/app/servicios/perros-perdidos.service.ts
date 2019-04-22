@@ -11,6 +11,6 @@ export class PerrosPerdidosService {
 
   agregarAnuncio(anuncio: Anuncio) {
     console.log(anuncio);
-    
+    return this.http.post('https://findme-proyecto-9d68a.firebaseio.com/anuncios.json', anuncio);
   }
 }

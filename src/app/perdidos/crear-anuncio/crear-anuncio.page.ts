@@ -55,10 +55,11 @@ export class CrearAnuncioPage implements OnInit {
         this.form.controls.descripcion.value,
         this.form.controls.fechaPerdido.value
       );
-      this.servicioPerdidos.agregarAnuncio(anuncio);
-      setTimeout(() => {
+      this.servicioPerdidos.agregarAnuncio(anuncio)
+      .subscribe(() => {
         loadingEl.dismiss();
-      }, 2000);
+        this.form.reset();
+      });
     });
   }
 
