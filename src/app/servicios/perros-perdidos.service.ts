@@ -20,7 +20,7 @@ export class PerrosPerdidosService {
   }
 
   obtenerAnuncios() {
-    this.http.get('https://findme-proyecto-9d68a.firebaseio.com/anuncios.json').pipe(map(resData => {
+    return this.http.get('https://findme-proyecto-9d68a.firebaseio.com/anuncios.json').pipe(map(resData => {
       const perrosPerdidos: Array<any> =  [];
       for (const key in resData) {
         if (resData.hasOwnProperty(key)) {
@@ -35,15 +35,14 @@ export class PerrosPerdidosService {
       }
       console.log(perrosPerdidos[0].key);
       return perrosPerdidos;
-    })).subscribe(datos => {
+    })); /*.subscribe(datos => {
       console.log(datos);
       this.todosPerrosPerdidos = datos;
       console.log(this.todosPerrosPerdidos);
-    });
+    });*/
   }
 
   obtenerAnuncio(key: string) {
-    console.log('Si entra');
     let perro: any;
     this.todosPerrosPerdidos.forEach(el => {
       if(el.key === key){

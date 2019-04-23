@@ -1,6 +1,6 @@
 
 import { PerrosPerdidosService } from '../servicios/perros-perdidos.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-tab1',
@@ -10,26 +10,31 @@ import { Component, OnInit } from '@angular/core';
 export class Tab1Page {
 
   listaPerros: any;
+  listaLista = false;
   constructor(private perrosPerdidosServicio: PerrosPerdidosService) {}
 
 // tslint:disable-next-line: use-life-cycle-interface
   ngOnInit() {
     this.obtenerAnuncios();
-    
   }
 
   obtenerAnuncios() {
-    setTimeout(() => {
+    this.perrosPerdidosServicio.obtenerAnuncios().subscribe(datos => {
+      console.log(datos);
+      this.perrosPerdidosServicio.todosPerrosPerdidos = datos;
+      console.log(this.perrosPerdidosServicio.todosPerrosPerdidos);
       this.listaPerros = this.perrosPerdidosServicio.todosPerrosPerdidos;
       console.log(this.listaPerros);
-      this.obtenerAnuncio();
-    }, 5000);
-    /* Para tener listos a los perros, despues se ejecuta el setTimeOut */
-    this.perrosPerdidosServicio.obtenerAnuncios();
+    }, error => {
+      console.log(error);
+    }, () => {
+      console.log('completado');
+      this.listaLista = true;
+    });
   }
 
-  obtenerAnuncio() {
-    const perro = this.perrosPerdidosServicio.obtenerAnuncio('-Ld6C2CaqNlg3mdfl0lF');
+  obtenerAnuncio(key: string) {
+    const perro = this.perrosPerdidosServicio.obtenerAnuncio(key);
     console.log(perro);
   }
 
