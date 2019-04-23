@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { FormularioEncontradoPage } from './formulario-encontrado.page';
+import { ComponentesModule } from '../componentes/componentes.module';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
+    ComponentesModule,
     RouterModule.forChild(routes)
   ],
   declarations: [FormularioEncontradoPage]

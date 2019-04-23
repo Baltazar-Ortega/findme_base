@@ -19,7 +19,7 @@ export class Tab1Page {
   }
 
   obtenerAnuncios() {
-    this.perrosPerdidosServicio.obtenerAnuncios().subscribe(datos => {
+    /* this.perrosPerdidosServicio.obtenerAnuncios().subscribe(datos => {
       console.log(datos);
       this.perrosPerdidosServicio.todosPerrosPerdidos = datos;
       console.log(this.perrosPerdidosServicio.todosPerrosPerdidos);
@@ -30,7 +30,7 @@ export class Tab1Page {
     }, () => {
       console.log('completado');
       this.listaLista = true;
-    });
+    });*/
   }
 
   obtenerAnuncio(key: string) {
