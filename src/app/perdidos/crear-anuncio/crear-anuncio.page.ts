@@ -50,6 +50,7 @@ export class CrearAnuncioPage implements OnInit {
       loadingEl.present();
       console.log('Agregando anuncio...');
       const anuncio: Anuncio = new Anuncio(
+        
         this.form.controls.nombrePerro.value,
         this.form.controls.raza.value,
         this.form.controls.descripcion.value,
