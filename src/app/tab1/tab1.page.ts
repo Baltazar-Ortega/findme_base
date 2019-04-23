@@ -9,23 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Tab1Page {
 
+  listaPerros: any;
   constructor(private perrosPerdidosServicio: PerrosPerdidosService) {}
 
 // tslint:disable-next-line: use-life-cycle-interface
   ngOnInit() {
     this.obtenerAnuncios();
-    this.obtenerAnuncio();
+    
   }
 
   obtenerAnuncios() {
-    this.perrosPerdidosServicio.obtenerAnuncios().subscribe((datos) => {
-      console.log(datos);
-      console.log(typeof datos);
-    });
+    setTimeout(() => {
+      this.listaPerros = this.perrosPerdidosServicio.todosPerrosPerdidos;
+      console.log(this.listaPerros);
+      this.obtenerAnuncio();
+    }, 5000);
+    /* Para tener listos a los perros, despues se ejecuta el setTimeOut */
+    this.perrosPerdidosServicio.obtenerAnuncios();
   }
 
   obtenerAnuncio() {
-    // this.perrosPerdidosServicio.obtenerAnuncio('-Ld6C2CaqNlg3mdfl0lF');
+    const perro = this.perrosPerdidosServicio.obtenerAnuncio('-Ld6C2CaqNlg3mdfl0lF');
+    console.log(perro);
   }
 
 }

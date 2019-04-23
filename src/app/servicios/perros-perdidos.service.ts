@@ -10,6 +10,8 @@ import { map } from 'rxjs/operators';
 })
 export class PerrosPerdidosService {
 
+  public todosPerrosPerdidos: any;
+
   constructor(private http: HttpClient) { }
 
   agregarAnuncio(anuncio: Anuncio) {
@@ -18,8 +20,8 @@ export class PerrosPerdidosService {
   }
 
   obtenerAnuncios() {
-    return this.http.get('https://findme-proyecto-9d68a.firebaseio.com/anuncios.json').pipe(map(resData => {
-      const perrosPerdidos = [];
+    this.http.get('https://findme-proyecto-9d68a.firebaseio.com/anuncios.json').pipe(map(resData => {
+      const perrosPerdidos: Array<any> =  [];
       for (const key in resData) {
         if (resData.hasOwnProperty(key)) {
           perrosPerdidos.push({
@@ -31,12 +33,25 @@ export class PerrosPerdidosService {
           });
         }
       }
-      /*Esto debe ser convertido a un array para manejarlo mas facilmente */
+      console.log(perrosPerdidos[0].key);
       return perrosPerdidos;
-    }));
+    })).subscribe(datos => {
+      console.log(datos);
+      this.todosPerrosPerdidos = datos;
+      console.log(this.todosPerrosPerdidos);
+    });
   }
 
-  obtenerAnuncio(id: string) {
+  obtenerAnuncio(key: string) {
+    console.log('Si entra');
+    let perro: any;
+    this.todosPerrosPerdidos.forEach(el => {
+      if(el.key === key){
+        console.log('encontrado');
+        perro = el;
+      }
+    });
+    return perro;
   }
 
 }
