@@ -1,5 +1,5 @@
 import { MapModalComponent } from './../map-modal/map-modal.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { PlaceLocation } from '../location.model';
 import { environment } from '../../../../environments/environment';
@@ -10,7 +10,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./location-picker.component.scss'],
 })
 export class LocationPickerComponent implements OnInit {
-
+  @Output() locationPick = new EventEmitter<PlaceLocation>();
   selectedLocationImage: string;
   isLoading = false;
 
@@ -33,6 +33,7 @@ export class LocationPickerComponent implements OnInit {
         this.isLoading = true;
         this.selectedLocationImage = pickedLocation.staticMapImageUrl;
         this.isLoading = false;
+        this.locationPick.emit(pickedLocation);
         // console.log(modalData.data);  en .data estan los lat y lng
       });
       modalEl.present();

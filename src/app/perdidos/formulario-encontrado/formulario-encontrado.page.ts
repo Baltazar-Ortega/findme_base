@@ -3,6 +3,7 @@ import { LoadingController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Encontrado } from './encontrado.model';
+import { PlaceLocation } from '../componentes/location.model';
 
 @Component({
   selector: 'app-formulario-encontrado',
@@ -27,8 +28,13 @@ export class FormularioEncontradoPage implements OnInit {
       fechaEncontrado: new FormControl(null, {
         updateOn: 'blur',
         validators: [Validators.required]
-      })
+      }),
+      location: new FormControl(null, { validators: [Validators.required]})
     });
+  }
+
+  onLocationPicked(location: PlaceLocation) {
+    this.form.patchValue({ location: location });
   }
 
   onCrearAnuncioEncontrado() {
@@ -43,6 +49,7 @@ export class FormularioEncontradoPage implements OnInit {
         const encontrado: Encontrado = new Encontrado(
           this.form.controls.fechaEncontrado.value,
           this.form.controls.mensaje.value,
+          this.form.get('location').value
         );
         this.encontradosService.mandarAnuncioEncontrado(encontrado)
           .subscribe(() => {
