@@ -20,6 +20,8 @@
     "@angular/platform-browser": "^7.2.2",
     "@angular/platform-browser-dynamic": "^7.2.2",
     "@angular/router": "^7.2.2",
+    "@capacitor/cli": "^1.0.0-beta.19",
+    "@capacitor/core": "^1.0.0-beta.19",
     "@ionic-native/camera": "^5.5.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/geolocation": "^5.5.0",
