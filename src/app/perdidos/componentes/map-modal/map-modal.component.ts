@@ -1,6 +1,9 @@
+import { Coordinates } from './../location.model';
 import { ModalController } from '@ionic/angular';
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Renderer2, OnDestroy } from '@angular/core';
 import { environment  } from '../../../../environments/environment';
+import { Plugins, Capacitor } from '@capacitor/core';
+import { PlaceLocation } from '../location.model';
 
 @Component({
   selector: 'app-map-modal',
@@ -13,6 +16,7 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
   // Los listeners se guardan en memoria. Declaramos estas variables para usarlas en ngOnDestroy
   clickListener: any;
   googleMaps: any;
+  centro: Coordinates;
 
   constructor(private modalCtrl: ModalController, private renderer: Renderer2) { }
 
@@ -20,25 +24,36 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() { // Cuando ya cargó el DOM
     this.getGoogleMaps().then(googleMaps => {
-      this.googleMaps = googleMaps;
-      const mapEl = this.mapElementRef.nativeElement; // el div es nativeElement, lo anterior es solo referencia
-      const map = new googleMaps.Map(mapEl, {
-        center: { lat: 25.686613, lng: -100.316116 },
-        zoom: 13
-      });
+      // Obtener ubicacion
+      Plugins.Geolocation.getCurrentPosition()
+        .then(geoPosition => {
+          const centroCoordenadas: Coordinates = { lat: geoPosition.coords.latitude, lng: geoPosition.coords.longitude };
+          this.centro = centroCoordenadas;
+          this.googleMaps = googleMaps;
+          const mapEl = this.mapElementRef.nativeElement; // el div es nativeElement, lo anterior es solo referencia
+          const map = new googleMaps.Map(mapEl, {
+            center: { lat: this.centro.lat, lng: this.centro.lng },
+            zoom: 13
+          });
+    
+          // Evento de la carga
+          this.googleMaps.event.addListenerOnce(map, 'idle', () => {
+            this.renderer.addClass(mapEl, 'visible');
+          });
+    
+          this.clickListener = map.addListener('click', event => {
+            const selectedCoords = { 
+              lat: event.latLng.lat(),
+              lng: event.latLng.lng()
+            };
+            this.modalCtrl.dismiss(selectedCoords);
+          });
 
-      // Evento de la carga
-      this.googleMaps.event.addListenerOnce(map, 'idle', () => {
-        this.renderer.addClass(mapEl, 'visible');
-      });
 
-      this.clickListener = map.addListener('click', event => {
-        const selectedCoords = { 
-          lat: event.latLng.lat(),
-          lng: event.latLng.lng()
-        };
-        this.modalCtrl.dismiss(selectedCoords);
-      });
+        })
+        .catch(err => {
+          console.log('No se pudo obtener la ubicacion del usuario');
+        })
     })
     .catch(err => {
       console.log(err);
