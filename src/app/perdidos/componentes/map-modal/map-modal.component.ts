@@ -47,7 +47,7 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
               lat: event.latLng.lat(),
               lng: event.latLng.lng()
             };
-            this.modalCtrl.dismiss(selectedCoords); 
+            this.modalCtrl.dismiss(selectedCoords);
           });
 
 

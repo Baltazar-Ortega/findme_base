@@ -15,6 +15,9 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
   clickListener: any;
   googleMaps: any;
   centro: Coordinates; 
+  coordenadasPoligono: any;
+  map: any;
+  listo = false;
 
   constructor(private modalCtrl: ModalController,
               private renderer: Renderer2) { }
@@ -32,9 +35,13 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
         const mapEl = this.mapElementRef.nativeElement; // el div es nativeElement, lo anterior es solo referencia
         const map = new googleMaps.Map(mapEl, {
           center: { lat: this.centro.lat, lng: this.centro.lng },
-          zoom: 14
+          zoom: 15
         });
-
+        this.map = map;
+        console.log('centro latitud', map.center.lat());
+        const centroLat = map.center.lat();
+        console.log('centro longitud', map.center.lng());
+        const centroLng = map.center.lng();
         // Evento de la carga
         this.googleMaps.event.addListenerOnce(map, 'idle', () => {
           this.renderer.addClass(mapEl, 'visible');
@@ -49,12 +56,20 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
         San Pedro: Latitud: 25.6573, Longitud: -100.402
         Gudalupe: Latitud: 25.6792, Longitud: -100.235
         */
+        /* Mas o menos bien
+        { lat: (centroLat + .01), lng: (centroLng) },
+        { lat: (centroLat), lng: (centroLng + 0.02) },
+        { lat: (centroLat - 0.01), lng: (centroLng + 0.01) },
+        { lat: (centroLat - 0.01), lng: (centroLng - 0.01) },
+        { lat: (centroLat), lng: (centroLng - 0.02) }
+        */
 
         let pentagonCoords = [
-          { lat: 25.7508, lng: -100.283},
-          { lat: 25.7816, lng: -100.188},
-          { lat: 25.6792, lng: -100.235},
-          { lat: 25.6573, lng: -100.402 }
+          { lat: (centroLat + .001), lng: (centroLng)},
+          { lat: (centroLat), lng: (centroLng + 0.002)},
+          { lat: (centroLat - 0.001), lng: (centroLng + 0.001)},
+          { lat: (centroLat - 0.001), lng: (centroLng - 0.001) },
+          {lat: (centroLat), lng: (centroLng - 0.002)}
         ];
 
         let pentagono = new googleMaps.Polygon({
@@ -77,6 +92,7 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
           });
         }
 
+        /*
         let arrayMarcadoresOriginal = [];
         arrayPuntos.forEach((latLng, idx) => {
           let marker = new googleMaps.Marker({
@@ -85,18 +101,24 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
           arrayMarcadoresOriginal.push(marker);
           marker.setMap(map);
         });
+        */
         //Pintar mapa
         pentagono.setMap(map);
 
+        this.coordenadasPoligono = arrayPuntos;
+
+        // Se modificó el area del pentagono
         googleMaps.event.addListener(pentagono.getPath(), 'set_at', () => {
           console.log('un path fue modificado set_at');
-          if (arrayMarcadoresOriginal) {
+
             console.log('si existia marcadores original');
             //borrar marcadores existentes
+            /*
             for (let i = 0; i < arrayMarcadoresOriginal.length; i++) {
               arrayMarcadoresOriginal[i].setMap(null);
             }
             arrayMarcadoresOriginal = null;
+            */
 
             let points = pentagono.getPath();
             let arrayPuntos = [];
@@ -108,11 +130,11 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
             }
 
             console.log(arrayPuntos);
-
+            /*
             let arrayMarcadores = [];
             
             arrayPuntos.forEach((latLng, idx) => {
-              let marker = googleMaps.Marker({
+              let marker = new googleMaps.Marker({
                 position: { lat: latLng.lat, lng: latLng.lng }
               });
               arrayMarcadores.push(marker);
@@ -120,20 +142,23 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
             });
             arrayMarcadoresOriginal = arrayMarcadores;
             console.log('arrayMarcadores', arrayMarcadores);
+            */
+            this.coordenadasPoligono = arrayPuntos;
 
-            //this.modalCtrl.dismiss(arrayMarcadores);
-          }
         });
 
+        // Se agrega un nuevo punto al pentagono
         googleMaps.event.addListener(pentagono.getPath(), 'insert_at', () => {
           console.log('un path fue modificado insert_at');
-          if (arrayMarcadoresOriginal) {
+
             console.log('si existia marcadores original');
             //borrar marcadores existentes
+            /*
             for (let i = 0; i < arrayMarcadoresOriginal.length; i++) {
               arrayMarcadoresOriginal[i].setMap(null);
             }
             arrayMarcadoresOriginal = null;
+            */
 
             let points = pentagono.getPath();
             let arrayPuntos = [];
@@ -145,18 +170,19 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
             }
 
             console.log(arrayPuntos);
-
+            /*
             let arrayMarcadores = [];
             arrayPuntos.forEach((latLng, idx) => {
-              let marker = googleMaps.Marker({
+              let marker = new googleMaps.Marker({ 
                 position: { lat: latLng.lat, lng: latLng.lng }
               });
               arrayMarcadores.push(marker);
               marker.setMap(map);
             })
             arrayMarcadoresOriginal = arrayMarcadores;
-            this.modalCtrl.dismiss(arrayMarcadores);
-          }
+            */
+
+            this.coordenadasPoligono = arrayPuntos;
         });
 
       }).catch(err => {
@@ -165,6 +191,30 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
     }).catch(err => {
       console.log(err);
     })
+  }
+
+  onListo() {
+      let arrayMarcadores = [];
+      this.coordenadasPoligono.forEach((latLng, idx) => {
+        let marker = new this.googleMaps.Marker({ 
+          position: { lat: latLng.lat, lng: latLng.lng }
+        });
+        arrayMarcadores.push(marker);
+        marker.setMap(this.map);
+      });
+      this.listo = true;
+  }
+
+  onConfirmar() {
+    this.modalCtrl.dismiss(this.coordenadasPoligono);
+  }
+
+  onCancelar() {
+    this.modalCtrl.dismiss();
+  }
+
+  ngOnDestroy() {
+    this.googleMaps.event.removeListener(this.clickListener);
   }
 
   private getGoogleMaps(): Promise<any> {
@@ -190,14 +240,6 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
         }
       };
     })
-  }
-
-  onCancelar() {
-    this.modalCtrl.dismiss();
-  }
-
-  ngOnDestroy() {
-    this.googleMaps.event.removeListener(this.clickListener);
   }
 
 }

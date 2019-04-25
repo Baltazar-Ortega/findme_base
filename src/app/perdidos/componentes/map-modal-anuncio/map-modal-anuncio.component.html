@@ -3,6 +3,8 @@
     <ion-title>Establece la zona</ion-title>
     <ion-buttons slot="primary">
       <ion-button (click)="onCancelar()">Cancelar</ion-button>
+      <ion-button *ngIf="!listo" (click)="onListo()"><ion-icon name="checkmark-circle" color="green" id="listo"></ion-icon></ion-button>
+      <ion-button *ngIf="listo" (click)="onConfirmar()">Confirmar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
