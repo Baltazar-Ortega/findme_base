@@ -42,8 +42,10 @@ export class CrearAnuncioPage implements OnInit {
     });
   }
 
-  onLocationPicked(location: PlaceLocation) {
-    this.form.patchValue({ location: location });
+  onLocationPicked(locationInfo: any) {
+    console.log('locationInfo', locationInfo);
+    this.form.patchValue({ location: locationInfo });
+    console.log('validez del formulario', this.form.valid);
   }
 
   onCrearAnuncio() {
@@ -60,12 +62,13 @@ export class CrearAnuncioPage implements OnInit {
         this.form.controls.raza.value,
         this.form.controls.descripcion.value,
         this.form.controls.fechaPerdido.value,
-        this.form.get('location').value
+        this.form.get('location').value 
       );
       this.servicioPerdidos.agregarAnuncio(anuncio)
       .subscribe(() => {
         loadingEl.dismiss();
         this.form.reset();
+        this.router.navigateByUrl('/dashboard-perdido');
       });
     });
   }

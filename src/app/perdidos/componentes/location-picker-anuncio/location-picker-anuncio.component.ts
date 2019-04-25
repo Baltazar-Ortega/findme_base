@@ -12,7 +12,7 @@ import { Plugins } from '@capacitor/core';
   styleUrls: ['./location-picker-anuncio.component.scss'],
 })
 export class LocationPickerAnuncioComponent implements OnInit {
-  @Output() locationPick = new EventEmitter(); 
+  @Output() locationPick = new EventEmitter();
   selectedLocationImage: string;
   isLoading = false;
   centroCoordenadas: Coordinates;
@@ -26,7 +26,7 @@ export class LocationPickerAnuncioComponent implements OnInit {
   
   onPickLocation() {
     this.openMap();
-  }
+  } 
   
   openMap() {
     Plugins.Geolocation.getCurrentPosition().then(geoPosition => {
@@ -42,7 +42,12 @@ export class LocationPickerAnuncioComponent implements OnInit {
         this.isLoading = true;
         this.imagenGenerada = this.getMapImage(this.centroCoordenadas, arrayLatLng, 15);
         console.log('Data enviada desde el modal', modalData);
+        let poligonoInfoCompleta = {
+          array: arrayLatLng,
+          imagen: this.imagenGenerada,
+        };
         this.isLoading = false;
+        this.locationPick.emit(poligonoInfoCompleta);
       }); 
       modalEl.present();
     });
@@ -51,7 +56,17 @@ export class LocationPickerAnuncioComponent implements OnInit {
   private getMapImage(centro, array, zoom) {
     let stringImagen =  `https://maps.googleapis.com/maps/api/staticmap?center=${centro.lat},${centro.lng}&zoom=${zoom}&size=500x300&maptype=roadmap&path=color:red|weight:5|fillcolor:red`;
     let stringKey = `&key=${environment.googleMapsAPIKey}`;
-    array.forEach(el => {
+    let stringPrimerasCoordenadas: string;
+    array.forEach((el, index) => {
+      let stringCoordenadas = `|${el.lat},${el.lng}`;
+      if(index === 0) {
+        stringPrimerasCoordenadas = stringCoordenadas;
+      }
+      stringImagen += stringCoordenadas;
+    });
+    stringImagen += stringPrimerasCoordenadas;
+    stringImagen += `&markers=color:red`;
+    array.forEach((el, index) => {
       let stringCoordenadas = `|${el.lat},${el.lng}`;
       stringImagen += stringCoordenadas;
     });
