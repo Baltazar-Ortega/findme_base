@@ -59,10 +59,17 @@
       <ion-row class="ion-margin-top">
         <ion-col size-sm="3" offset-sm="3">
           <ion-item lines="none">
-            <ion-text class="ion-margin-top">Zona donde puede estar</ion-text>
+            <ion-label class="ion-margin-top">Zona donde puede estar</ion-label>
           </ion-item>
         </ion-col>
       </ion-row>
+
+      <ion-row class="ion-margin-top">
+        <ion-col size-sm="6" offset-sm="3">
+          <app-location-picker-anuncio (locationPick)="onLocationPicked($event)"></app-location-picker-anuncio>
+        </ion-col>
+      </ion-row>
+
     </ion-grid>
   </form>
 </ion-content>

@@ -5,7 +5,7 @@ import { ModalController, ActionSheetController, AlertController } from '@ionic/
 import { PlaceLocation } from '../location.model';
 import { environment } from '../../../../environments/environment';
 import { Plugins, Capacitor } from '@capacitor/core';
-
+ 
 @Component({
   selector: 'app-location-picker',
   templateUrl: './location-picker.component.html',
@@ -75,7 +75,7 @@ export class LocationPickerComponent implements OnInit {
       modalEl.onDidDismiss().then(modalData => { // Los modals pueden retornar valores
         if (!modalData.data) {
           return;
-        }
+        } 
         const pickedLocation: PlaceLocation = {
           lat: modalData.data.lat,
           lng: modalData.data.lng,

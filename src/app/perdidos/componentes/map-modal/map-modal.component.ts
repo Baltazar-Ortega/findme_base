@@ -40,13 +40,14 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
           this.googleMaps.event.addListenerOnce(map, 'idle', () => {
             this.renderer.addClass(mapEl, 'visible');
           });
-    
+          
+          // Obtener coordenadas del lugar seleccionado
           this.clickListener = map.addListener('click', event => {
             const selectedCoords = { 
               lat: event.latLng.lat(),
               lng: event.latLng.lng()
             };
-            this.modalCtrl.dismiss(selectedCoords);
+            this.modalCtrl.dismiss(selectedCoords); 
           });
 
 
@@ -87,7 +88,6 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       };
     })
-
   }
 
   ngOnDestroy() {

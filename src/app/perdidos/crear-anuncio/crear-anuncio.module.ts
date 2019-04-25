@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CrearAnuncioPage } from './crear-anuncio.page';
+import { ComponentesModule } from '../componentes/componentes.module';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
+    ComponentesModule,
     RouterModule.forChild(routes)
   ],
   declarations: [CrearAnuncioPage]

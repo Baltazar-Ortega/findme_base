@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { Anuncio } from './anuncio.model';
+import { PlaceLocation } from '../componentes/location.model';
 
 @Component({
   selector: 'app-crear-anuncio',
@@ -36,11 +37,16 @@ export class CrearAnuncioPage implements OnInit {
       fechaPerdido: new FormControl(null, {
         updateOn: 'blur',
         validators: [Validators.required]
-      })
+      }),
+      location: new FormControl(null, {validators: [Validators.required]})
     });
   }
 
-  onCrearAnuncio(){
+  onLocationPicked(location: PlaceLocation) {
+    this.form.patchValue({ location: location });
+  }
+
+  onCrearAnuncio() {
     if (!this.form.valid) {
       return;
     }
@@ -50,11 +56,11 @@ export class CrearAnuncioPage implements OnInit {
       loadingEl.present();
       console.log('Agregando anuncio...');
       const anuncio: Anuncio = new Anuncio(
-        
         this.form.controls.nombrePerro.value,
         this.form.controls.raza.value,
         this.form.controls.descripcion.value,
-        this.form.controls.fechaPerdido.value
+        this.form.controls.fechaPerdido.value,
+        this.form.get('location').value
       );
       this.servicioPerdidos.agregarAnuncio(anuncio)
       .subscribe(() => {
