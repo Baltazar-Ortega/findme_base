@@ -1,0 +1,7 @@
+{
+  "appId": "com.lcc.findme",
+  "appName": "base",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}
