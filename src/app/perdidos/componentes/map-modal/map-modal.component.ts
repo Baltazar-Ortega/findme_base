@@ -15,7 +15,7 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('map') mapElementRef: ElementRef;
   // Los listeners se guardan en memoria. Declaramos estas variables para usarlas en ngOnDestroy
   clickListener: any;
-  googleMaps: any;
+  googleMaps: any; 
   centro: Coordinates;
 
   constructor(private modalCtrl: ModalController, private renderer: Renderer2) { }
