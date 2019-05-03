@@ -17,8 +17,7 @@ Onboarding -> Autenticacion
 * Funcionalidad de cada card
 
 ##### (Rodolfo)
-* Mi Perfil
-* Perfil de otra persona
+* Descubrir como compartir en redes sociales una card de perro
 
 ##### (Baltazar)
 * Formulario Encontrado
