@@ -18,11 +18,11 @@
             <ion-card-title>{{perro.nombrePerro}}</ion-card-title>
             <ion-card-subtitle>{{perro.raza}}</ion-card-subtitle>
           </ion-card-header>
-          <ion-img src="assets/imagenes/perro.jpg"></ion-img>
+          <img [src]="perro.image">
           <ion-card-content>
             {{perro.descripcion}}
           </ion-card-content>
-          <ion-text>{{perro.fechaPerdido}}</ion-text>
+          <ion-text>Se perdió el: {{ formatoFecha(perro.fechaPerdido) }}</ion-text>
           <ion-button (click)="obtenerAnuncio(perro.key)" color="tertiary" class="boton-detalles">Ver detalles</ion-button>
         </ion-card>
       </ion-item>

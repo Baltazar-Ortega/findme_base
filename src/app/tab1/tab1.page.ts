@@ -19,7 +19,7 @@ export class Tab1Page {
   }
 
   obtenerAnuncios() {
-    /* this.perrosPerdidosServicio.obtenerAnuncios().subscribe(datos => {
+    this.perrosPerdidosServicio.obtenerAnuncios().subscribe(datos => {
       console.log(datos);
       this.perrosPerdidosServicio.todosPerrosPerdidos = datos;
       console.log(this.perrosPerdidosServicio.todosPerrosPerdidos);
@@ -30,12 +30,25 @@ export class Tab1Page {
     }, () => {
       console.log('completado');
       this.listaLista = true;
-    });*/
+    });
   }
 
   obtenerAnuncio(key: string) {
     const perro = this.perrosPerdidosServicio.obtenerAnuncio(key);
     console.log(perro);
+  }
+
+  private formatoFecha(fecha: Date) {
+    let month = String(fecha.getMonth() + 1);
+    let day = String(fecha.getDate());
+    const year = String(fecha.getFullYear());
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+    return `${day}/${month}/${year}`;
   }
 
 }

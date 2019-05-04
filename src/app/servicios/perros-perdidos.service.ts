@@ -20,7 +20,7 @@ export class PerrosPerdidosService {
   }
 
   obtenerAnuncios() {
-    /*return this.http.get('https://findme-proyecto-9d68a.firebaseio.com/anuncios.json').pipe(map(resData => {
+    return this.http.get('https://findme-proyecto-9d68a.firebaseio.com/anuncios.json').pipe(map(resData => {
       const perrosPerdidos: Array<any> =  [];
       for (const key in resData) {
         if (resData.hasOwnProperty(key)) {
@@ -29,14 +29,15 @@ export class PerrosPerdidosService {
             nombrePerro: resData[key].nombrePerro,
             raza: resData[key].raza,
             descripcion: resData[key].descripcion,
-            fechaPerdido: new Date(resData[key].fechaPerdido)
+            fechaPerdido: new Date(resData[key].fechaPerdido),
+            image: resData[key].image
           });
         }
       }
       console.log(perrosPerdidos[0].key);
       return perrosPerdidos;
-    })); */
-    /*.subscribe(datos => {
+    }))
+  /*.subscribe(datos => {
       console.log(datos);
       this.todosPerrosPerdidos = datos;
       console.log(this.todosPerrosPerdidos);
@@ -52,6 +53,17 @@ export class PerrosPerdidosService {
       }
     });
     return perro;
+  }
+
+  uploadImage(image: File) {
+    const uploadData = new FormData();
+    uploadData.append('image', image);
+
+    /* Retornará un observable, url es una url que podemos agarrar de donde sea, y path es la imagen local desde el backend*/
+    return this.http.post<{imageUrl: string, imagePath: string}>(
+      'https://us-central1-findme-proyecto-9d68a.cloudfunctions.net/storeImage',
+      uploadData
+    );
   }
 
 }

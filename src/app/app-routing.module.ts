@@ -7,8 +7,6 @@ const routes: Routes = [
   { path: 'dashboard-encontrado', loadChildren: './tabs/tabs.module#TabsPageModule' },
   { path: 'autenticacion', loadChildren: './autenticacion/autenticacion.module#AutenticacionPageModule' },
   { path: 'detalle-perro', loadChildren: './perdidos/detalle-perro/detalle-perro.module#DetallePerroPageModule' },
-  { path: 'miperfil', loadChildren: './perfil/miperfil/miperfil.module#MiperfilPageModule' },
-  { path: 'userperfil', loadChildren: './perfil/userperfil/userperfil.module#UserperfilPageModule' },
   { path: 'detalle-encontrado', loadChildren: './encontrados/detalle-encontrado/detalle-encontrado.module#DetalleEncontradoPageModule' },
   { path: 'crear-anuncio', loadChildren: './perdidos/crear-anuncio/crear-anuncio.module#CrearAnuncioPageModule' },
   { path: 'formulario-encontrado', loadChildren: './perdidos/formulario-encontrado/formulario-encontrado.module#FormularioEncontradoPageModule' }

@@ -5,6 +5,7 @@ export class Anuncio {
         public raza: string,
         public descripcion: string,
         public fechaPerdido: Date,
-        public location: PlaceLocation
+        public location: PlaceLocation,
+        public image: any
     ) {}
 }
