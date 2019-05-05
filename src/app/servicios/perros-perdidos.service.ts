@@ -55,14 +55,12 @@ export class PerrosPerdidosService {
     return perro;
   }
 
-  uploadImage(image: File) {
-    const uploadData = new FormData();
-    uploadData.append('image', image);
+  uploadImage(image: any) {
 
     /* Retornará un observable, url es una url que podemos agarrar de donde sea, y path es la imagen local desde el backend*/
-    return this.http.post<{imageUrl: string, imagePath: string}>(
+    return this.http.post(
       'https://us-central1-findme-proyecto-9d68a.cloudfunctions.net/storeImage',
-      uploadData
+      image
     );
   }
 

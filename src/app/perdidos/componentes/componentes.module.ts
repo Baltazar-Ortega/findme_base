@@ -1,3 +1,4 @@
+import { CameraOptions, Camera } from '@ionic-native/camera/ngx';
 import { ImagePickerComponent } from './image-picker/image-picker.component';
 import { LocationPickerAnuncioComponent } from './location-picker-anuncio/location-picker-anuncio.component';
 import { IonicModule } from '@ionic/angular';
@@ -11,7 +12,8 @@ import { MapModalAnuncioComponent } from './map-modal-anuncio/map-modal-anuncio.
     declarations: [LocationPickerComponent, 
         MapModalComponent, LocationPickerAnuncioComponent, MapModalAnuncioComponent, ImagePickerComponent],
     imports: [CommonModule, IonicModule],
-    exports: [LocationPickerComponent, MapModalComponent, LocationPickerAnuncioComponent, MapModalAnuncioComponent, ImagePickerComponent],
+    exports: [LocationPickerComponent, MapModalComponent, LocationPickerAnuncioComponent, MapModalAnuncioComponent, 
+        ImagePickerComponent],
     entryComponents: [MapModalComponent, MapModalAnuncioComponent, ImagePickerComponent]
 })
 export class ComponentesModule { }

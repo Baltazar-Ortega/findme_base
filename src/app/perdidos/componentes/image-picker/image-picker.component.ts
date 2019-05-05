@@ -1,3 +1,4 @@
+import { FIREBASE_CONFIG } from './../../../firebase.config';
 import {
   Component,
   OnInit,
@@ -7,34 +8,10 @@ import {
   ElementRef,
   Input
 } from '@angular/core';
-import {
-  Plugins,
-  Capacitor,
-  CameraSource,
-  CameraResultType
-} from '@capacitor/core';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Platform } from '@ionic/angular';
+import { storage, initializeApp } from 'firebase';
 
-function base64toBlob(base64Data, contentType) {
-  contentType = contentType || '';
-  const sliceSize = 1024;
-  const byteCharacters = window.atob(base64Data);
-  const bytesLength = byteCharacters.length;
-  const slicesCount = Math.ceil(bytesLength / sliceSize);
-  const byteArrays = new Array(slicesCount);
-
-  for (let sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
-    const begin = sliceIndex * sliceSize;
-    const end = Math.min(begin + sliceSize, bytesLength);
-
-    const bytes = new Array(end - begin);
-    for (let offset = begin, i = 0; offset < end; ++i, ++offset) {
-      bytes[i] = byteCharacters[offset].charCodeAt(0);
-    }
-    byteArrays[sliceIndex] = new Uint8Array(bytes);
-  }
-  return new Blob(byteArrays, { type: contentType });
-}
 
 @Component({
   selector: 'app-image-picker',
@@ -45,12 +22,15 @@ export class ImagePickerComponent implements OnInit {
   @ViewChild('filePicker') filePickerRef: ElementRef<HTMLInputElement>;
   @Output() imagePick = new EventEmitter<string | File>();
   @Input() showPreview = false; // para resetear si se vuelve a entrar
-  selectedImage: string;
+  selectedImage: any;
   usePicker = false;
 
-  constructor(private platform: Platform) { }
+  constructor(private platform: Platform, private camera: Camera) { 
+    
+  }
 
   ngOnInit() {
+    initializeApp(FIREBASE_CONFIG);
     console.log('Mobile:', this.platform.is('mobile'));
     console.log('Hybrid:', this.platform.is('hybrid'));
     console.log('iOS:', this.platform.is('ios'));
@@ -64,34 +44,30 @@ export class ImagePickerComponent implements OnInit {
     }
   }
 
-  onPickImage() {
-    if (!Capacitor.isPluginAvailable('Camera')) {
-      this.filePickerRef.nativeElement.click();
-      return;
+  async onPickImage() {
+    try {
+      // Defining camera options
+      const options: CameraOptions = {
+        quality: 50,
+        targetHeight: 600,
+        targetWidth: 600,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        correctOrientation: true
+      };
+      const result = await this.camera.getPicture(options);
+      const image = `data:image/jpeg;base64,${result}`;
+      this.selectedImage = image;
+      this.imagePick.emit(this.selectedImage);
+      /*const pictures = storage().ref('pictures');
+      pictures.putString(image, 'data_url');*/
+    } catch(e) {
+      console.log('Error ', e);
     }
-    Plugins.Camera.getPhoto({
-      quality: 50,
-      source: CameraSource.Prompt,
-      correctOrientation: true,
-      // height: 320,
-      width: 200,
-      resultType: CameraResultType.Base64
-    }).then(image => {
-      console.log(image);
-      console.log(typeof image);
-      this.selectedImage = image.base64Data;
-      console.log(image.base64Data);
-      this.imagePick.emit(image.base64Data);
-    }).catch(error => {
-      console.log(error);
-      if (this.usePicker) {
-        this.filePickerRef.nativeElement.click();
-      }
-      return false;
-    });
   }
 
-  // Para desktop
+  // Para desktop 
   onFileChosen(event: Event) {
     const pickedFile = (event.target as HTMLInputElement).files[0];
     if (!pickedFile) {

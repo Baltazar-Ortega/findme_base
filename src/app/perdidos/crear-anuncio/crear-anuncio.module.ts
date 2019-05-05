@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CrearAnuncioPage } from './crear-anuncio.page';
 import { ComponentesModule } from '../componentes/componentes.module';
 
+
 const routes: Routes = [
   {
     path: '',
