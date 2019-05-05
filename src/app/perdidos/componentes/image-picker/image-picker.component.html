@@ -8,11 +8,11 @@
     *ngIf="selectedImage && showPreview"
   ></ion-img>
   -->
-  <div class="contenedor-imagen" *ngIf="selectedImage">
+  <div class="contenedor-imagen" *ngIf="selectedImage && showPreview">
       <img src="{{selectedImage}}"  (click)="onPickImage()" class="image">
   </div>
   
-  <ion-button color="primary" (click)="onPickImage()" *ngIf="!selectedImage">
+  <ion-button color="primary" (click)="onPickImage()" *ngIf="!selectedImage || !showPreview">
     <ion-icon name="camera" slot="start"></ion-icon>
     <ion-label>Subir foto</ion-label>
   </ion-button>

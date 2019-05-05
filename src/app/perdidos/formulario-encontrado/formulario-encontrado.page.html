@@ -40,6 +40,17 @@
         </ion-col>
       </ion-row>
 
+      <h4 class="ion-margin-top ion-text-center">Foto</h4>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <app-image-picker 
+             [showPreview]="form.get('image').value"
+             (imagePick)="onImagePicked($event)"
+          ></app-image-picker>
+        </ion-col>
+      </ion-row>
+
+      <h5 class="ion-margin-top ion-text-center">Marca en el mapa el lugar<br>donde lo encontraste</h5>
       <ion-row class="ion-margin-top">
         <ion-col size-sm="6" offset-sm="3">
           <app-location-picker (locationPick)="onLocationPicked($event)"></app-location-picker>
