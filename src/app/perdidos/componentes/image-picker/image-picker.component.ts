@@ -22,6 +22,7 @@ export class ImagePickerComponent implements OnInit {
   @ViewChild('filePicker') filePickerRef: ElementRef<HTMLInputElement>;
   @Output() imagePick = new EventEmitter<string | File>();
   @Input() showPreview = false; // para resetear si se vuelve a entrar
+  @Input() tipoAccesoFotos = false;
   selectedImage: any;
   usePicker = false;
 
@@ -45,13 +46,14 @@ export class ImagePickerComponent implements OnInit {
   }
 
   async onPickImage() {
+    console.log('tipo acceso fotos', this.tipoAccesoFotos);
     try {
       // Defining camera options
       const options: CameraOptions = {
         quality: 50,
         targetHeight: 600,
         targetWidth: 600,
-        sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
+        sourceType: this.tipoAccesoFotos ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.SAVEDPHOTOALBUM,
         destinationType: this.camera.DestinationType.DATA_URL,
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE,
