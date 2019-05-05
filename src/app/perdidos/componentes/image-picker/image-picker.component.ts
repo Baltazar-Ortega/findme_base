@@ -51,6 +51,7 @@ export class ImagePickerComponent implements OnInit {
         quality: 50,
         targetHeight: 600,
         targetWidth: 600,
+        sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
         destinationType: this.camera.DestinationType.DATA_URL,
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE,

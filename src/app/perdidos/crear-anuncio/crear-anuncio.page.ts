@@ -85,7 +85,7 @@ export class CrearAnuncioPage implements OnInit {
     this.checkValidado = true;
     this.loadingCtrl.create({message: 'Creando anuncio...'})
     .then(loadingEl => {
-      loadingEl.present(); 
+      loadingEl.present();
       this.servicioPerdidos.uploadImage(this.form.get('image').value);
       console.log('Agregando anuncio...');
       const anuncio: Anuncio = new Anuncio(
