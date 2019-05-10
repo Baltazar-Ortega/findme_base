@@ -50,7 +50,8 @@ export class PerrosPerdidosService {
             raza: resData[key].raza,
             descripcion: resData[key].descripcion,
             fechaPerdido: new Date(resData[key].fechaPerdido),
-            image: resData[key].image
+            image: resData[key].image,
+            location: resData[key].location
           });
         }
       }

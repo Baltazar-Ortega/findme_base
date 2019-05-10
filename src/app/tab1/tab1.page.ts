@@ -20,11 +20,12 @@ export class Tab1Page {
 
   obtenerAnuncios() {
     this.perrosPerdidosServicio.obtenerAnuncios().subscribe(datos => {
-      console.log(datos);
+      console.log('Datos traidos del servicio', datos);
       this.perrosPerdidosServicio.todosPerrosPerdidos = datos;
       console.log(this.perrosPerdidosServicio.todosPerrosPerdidos);
       this.listaPerros = this.perrosPerdidosServicio.todosPerrosPerdidos;
-      console.log(this.listaPerros);
+      console.log('MI LISTA DE PERROS', this.listaPerros);
+      console.log('Ubicacion del primer perro', this.listaLista[0]);
     }, error => {
       console.log(error);
     }, () => {
