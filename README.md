@@ -18,6 +18,8 @@ Onboarding -> Autenticacion
 
 ##### (Rodolfo)
 * Descubrir como compartir en redes sociales una card de perro
+* Manual de uso de la aplicacion (10 paginas)
+* Presentacion de diapositivas
 
 ##### (Baltazar)
 * Formulario Encontrado
