@@ -227,7 +227,7 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
     // No ha sido cargado el sdk
     return new Promise((resolve, reject) => {
       const script = document.createElement('script');
-      script.src = 'https://maps.googleapis.com/maps/api/js?key=' + environment.googleMapsAPIKey;
+      script.src = 'https://maps.googleapis.com/maps/api/js?key=' + environment.googleMapsAPIKey + '&libraries=geometry';
       script.async = true;
       script.defer = true;
       document.body.appendChild(script);

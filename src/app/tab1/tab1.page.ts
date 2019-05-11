@@ -1,6 +1,7 @@
 
 import { PerrosPerdidosService } from '../servicios/perros-perdidos.service';
 import { Component } from '@angular/core';
+import { ActivationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -8,21 +9,31 @@ import { Component } from '@angular/core';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-
+  selectKm: any = 'all';
+  filtro = false;
   listaPerros: any;
   listaLista = false;
   constructor(private perrosPerdidosServicio: PerrosPerdidosService) {}
 
 // tslint:disable-next-line: use-life-cycle-interface
   ngOnInit() {
-    this.obtenerAnuncios();
+    this.obtenerAnuncios('all');
   }
 
-  obtenerAnuncios() {
-    this.perrosPerdidosServicio.obtenerAnuncios().subscribe(datos => {
+  obtenerAnuncios(filtroValue: string) {
+    if (filtroValue === '5') {
+      this.selectKm = '5';
+    } else if (filtroValue === '10') {
+      this.selectKm = '10';
+    } else if(filtroValue === 'all') {
+      this.selectKm = 'all';
+    }
+    this.perrosPerdidosServicio.obtenerAnuncios(filtroValue).subscribe(datos => {
       console.log('Datos traidos del servicio', datos);
       this.perrosPerdidosServicio.todosPerrosPerdidos = datos;
       console.log(this.perrosPerdidosServicio.todosPerrosPerdidos);
+
+      // segun el filtro
       this.listaPerros = this.perrosPerdidosServicio.todosPerrosPerdidos;
       console.log('MI LISTA DE PERROS', this.listaPerros);
       console.log('Ubicacion del primer perro', this.listaLista[0]);
@@ -50,6 +61,14 @@ export class Tab1Page {
       day = '0' + day;
     }
     return `${day}/${month}/${year}`;
+  }
+
+  onFiltrar() {
+    if(this.filtro === false) {
+      this.filtro = true;
+    }else{
+      this.filtro = false;
+    }
   }
 
 }

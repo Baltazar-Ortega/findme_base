@@ -20,7 +20,7 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private modalCtrl: ModalController, private renderer: Renderer2) { }
 
-  ngOnInit() {}
+  ngOnInit() {} 
 
   ngAfterViewInit() { // Cuando ya cargó el DOM
     this.getGoogleMaps().then(googleMaps => {

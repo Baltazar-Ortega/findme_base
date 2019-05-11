@@ -11,6 +11,22 @@
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="9"><h3>Cerca de ti</h3></ion-col>
+      <ion-col size="3">
+          <ion-button color="secondary" (click)="onFiltrar()">Filtrar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+    <ion-item *ngIf="filtro">
+        <ion-label>Kilometros</ion-label>
+       <ion-buttons>
+         <ion-button (click)="obtenerAnuncios('all')">Sin filtros</ion-button>
+         <ion-button (click)="obtenerAnuncios('5')">5 Km</ion-button>
+         <ion-button (click)="obtenerAnuncios('10')">10 Km</ion-button>
+       </ion-buttons>
+    </ion-item>
     <ion-list>
       <ion-item *ngFor="let perro of listaPerros">
         <ion-card>
