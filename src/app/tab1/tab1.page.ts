@@ -17,17 +17,11 @@ export class Tab1Page {
 
 // tslint:disable-next-line: use-life-cycle-interface
   ngOnInit() {
-    this.obtenerAnuncios('all');
+    this.obtenerAnuncios();
   }
 
-  obtenerAnuncios(filtroValue: string) {
-    if (filtroValue === '5') {
-      this.selectKm = '5';
-    } else if (filtroValue === '10') {
-      this.selectKm = '10';
-    } else if(filtroValue === 'all') {
-      this.selectKm = 'all';
-    }
+  obtenerAnuncios() {
+    let filtroValue = this.selectKm;
     this.perrosPerdidosServicio.obtenerAnuncios(filtroValue).subscribe(datos => {
       console.log('Datos traidos del servicio', datos);
       this.perrosPerdidosServicio.todosPerrosPerdidos = datos;

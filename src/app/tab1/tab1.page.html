@@ -15,18 +15,25 @@
     <ion-row class="ion-align-items-center">
       <ion-col size="9"><h3>Cerca de ti</h3></ion-col>
       <ion-col size="3">
-          <ion-button color="secondary" (click)="onFiltrar()">Filtrar</ion-button>
+          <ion-button color="secondary" (click)="onFiltrar()">Filtro</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
-    <ion-item *ngIf="filtro">
+    <div *ngIf="filtro" class="ion-text-end">
+      <ion-item >
         <ion-label>Kilometros</ion-label>
-       <ion-buttons>
-         <ion-button (click)="obtenerAnuncios('all')">Sin filtros</ion-button>
-         <ion-button (click)="obtenerAnuncios('5')">5 Km</ion-button>
-         <ion-button (click)="obtenerAnuncios('10')">10 Km</ion-button>
-       </ion-buttons>
-    </ion-item>
+        <ion-select value="all" okText="Okay" cancelText="Cancelar" [(ngModel)]="selectKm">
+            <ion-select-option value="all">Sin filtro</ion-select-option>
+          <ion-select-option value="5">5</ion-select-option>
+          <ion-select-option value="10">10</ion-select-option>
+          <ion-select-option value="15">15</ion-select-option>
+          <ion-select-option value="20">20</ion-select-option>
+          <ion-select-option value="20">20</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button (click)="obtenerAnuncios()" class="ion-margin-top ion-margin-right">Aplicar</ion-button>
+    </div>
+    
     <ion-list>
       <ion-item *ngFor="let perro of listaPerros">
         <ion-card>

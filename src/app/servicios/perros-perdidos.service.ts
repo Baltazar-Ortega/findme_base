@@ -73,7 +73,7 @@ export class PerrosPerdidosService implements AfterViewInit {
       }
       if (filtroValue === 'all') {
         return perrosPerdidos;
-      } else if (filtroValue === '5') {
+      } else  {
         const perrosFiltrados = [];
         this.getGoogleMaps().then(googleMaps => {
           this.googleMaps = googleMaps;
@@ -85,7 +85,7 @@ export class PerrosPerdidosService implements AfterViewInit {
               const centroLatLng = new this.googleMaps.LatLng(this.centro.lat, this.centro.lng);
               const distanciaEnKm = this.googleMaps.geometry.spherical.computeDistanceBetween(marcador, centroLatLng) / 1000;
               //console.log(distanciaEnKm);
-              if (distanciaEnKm <= 150){ // En realidad es 5, solo por pruebas está en 150
+              if (distanciaEnKm <= parseFloat(filtroValue)) { // En realidad es 5, solo por pruebas está en 150
                 //console.log('Si cumple <=');
                 aDistancia = true;
               }
@@ -97,33 +97,7 @@ export class PerrosPerdidosService implements AfterViewInit {
             }
           });
         }); // Fin getGoogleMaps
-        console.log('PERROS FILTRADOS 5km', perrosFiltrados);
-        return perrosFiltrados;
-      } else if (filtroValue === '10') {
-        const perrosFiltrados = [];
-        this.getGoogleMaps().then(googleMaps => {
-          this.googleMaps = googleMaps;
-          perrosPerdidos.filter(anuncio => {
-            let aDistancia = false;
-            anuncio.location.array.forEach(position => {
-              // Si por lo menos una posicion entra en el rango, si entra el poligono
-              const marcador = new googleMaps.LatLng(position.lat, position.lng);
-              const centroLatLng = new this.googleMaps.LatLng(this.centro.lat, this.centro.lng);
-              const distanciaEnKm = this.googleMaps.geometry.spherical.computeDistanceBetween(marcador, centroLatLng) / 1000;
-              //console.log(distanciaEnKm);
-              if (distanciaEnKm <= 10){
-                //console.log('Si cumple <=');
-                aDistancia = true;
-              }
-            });
-            if (aDistancia) {
-              //console.log('Si hubo true');
-              perrosFiltrados.push(anuncio);
-              //console.log(perrosFiltrados);
-            }
-          });
-        }); // Fin getGoogleMaps
-        console.log('PERROS FILTRADOS 10km', perrosFiltrados);
+        console.log(`Perros filtrados ${filtroValue} km`, perrosFiltrados);
         return perrosFiltrados;
       }
     })
