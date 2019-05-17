@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title text-center><ion-text color="dark">Iniciar Sesion</ion-text></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Email</ion-label>
+    <ion-input type="text" name="email" [(ngModel)]="email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Contraseña</ion-label>
+    <ion-input type="password" name="password" [(ngModel)]="password"></ion-input>
+  </ion-item>
+  <br><br>
+  <ion-button (click)="onSubmitLogin()" expand="block" class="mt-5" color="secondary"><ion-text color="light">Entrar</ion-text></ion-button>
+  <br>
+  <p text-center routerLink="/registro">Crear cuenta</p>
+
+</ion-content>

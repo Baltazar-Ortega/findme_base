@@ -1,3 +1,10 @@
+import { FormsModule } from '@angular/forms';
+// Firebase
+import { FIREBASE_CONFIG } from './firebase.config';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,7 +22,9 @@ import { Camera } from '@ionic-native/camera/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
+  AngularFireModule.initializeApp(FIREBASE_CONFIG),
+  AngularFireAuthModule, AngularFirestoreModule, FormsModule],
   providers: [
     Camera,
     StatusBar,

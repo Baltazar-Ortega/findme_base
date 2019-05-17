@@ -41,7 +41,7 @@ export class FormularioEncontradoPage implements OnInit {
 
   onImagePicked(imageData: string) {
     console.log('Enters onImagePicked');
-    let imageFile = imageData;
+    const imageFile = imageData;
     console.log('String de imagen', imageFile);
     this.form.patchValue({ image: imageFile });
   }

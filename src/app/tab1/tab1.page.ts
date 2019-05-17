@@ -1,3 +1,4 @@
+import { AuthService } from './../servicios/auth.service';
 
 import { PerrosPerdidosService } from '../servicios/perros-perdidos.service';
 import { Component } from '@angular/core';
@@ -13,7 +14,8 @@ export class Tab1Page {
   filtro = false;
   listaPerros: any;
   listaLista = false;
-  constructor(private perrosPerdidosServicio: PerrosPerdidosService) {}
+
+  constructor(private perrosPerdidosServicio: PerrosPerdidosService, public authService: AuthService) {}
 
 // tslint:disable-next-line: use-life-cycle-interface
   ngOnInit() {
@@ -21,7 +23,7 @@ export class Tab1Page {
   }
 
   obtenerAnuncios() {
-    let filtroValue = this.selectKm;
+    const filtroValue = this.selectKm;
     this.perrosPerdidosServicio.obtenerAnuncios(filtroValue).subscribe(datos => {
       console.log('Datos traidos del servicio', datos);
       this.perrosPerdidosServicio.todosPerrosPerdidos = datos;
@@ -30,7 +32,6 @@ export class Tab1Page {
       // segun el filtro
       this.listaPerros = this.perrosPerdidosServicio.todosPerrosPerdidos;
       console.log('MI LISTA DE PERROS', this.listaPerros);
-      console.log('Ubicacion del primer perro', this.listaLista[0]);
     }, error => {
       console.log(error);
     }, () => {
@@ -60,9 +61,13 @@ export class Tab1Page {
   onFiltrar() {
     if(this.filtro === false) {
       this.filtro = true;
-    }else{
+    } else {
       this.filtro = false;
     }
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 
 }

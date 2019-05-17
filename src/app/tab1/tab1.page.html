@@ -4,8 +4,9 @@
       findme
     </ion-title>
     <ion-buttons slot="primary">
-      <ion-back-button defaultHref="/crear-anuncio" color="secondary"></ion-back-button>
-      <ion-back-button defaultHref="/formulario-encontrado" color="tertiary"></ion-back-button>
+        <ion-icon name="add" routerLink="/crear-anuncio"></ion-icon>
+      <ion-icon name="happy" routerLink="/formulario-encontrado" color="tertiary"></ion-icon>
+      <ion-button (click)="onLogout()">Logout</ion-button> <!-- Temporalmente esta aqui, por pruebas -->
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
