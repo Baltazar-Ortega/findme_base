@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title text-center>Mi Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="usuarioActual" padding>
+      <h2>Nombre: {{usuarioActual.nombreUsuario}}</h2>
+      <h3>Email: {{usuarioActual.email}}</h3>
+      <h4>Password: {{usuarioActual.password}}</h4>
+      <h5>uid de autenticacion: {{usuarioActual.uid}}</h5>
+      <h6>Id de base de datos: {{usuarioActual.key}}</h6>
+  </div>
+  
+</ion-content>
