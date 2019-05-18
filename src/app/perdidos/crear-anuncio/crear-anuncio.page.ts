@@ -86,22 +86,46 @@ export class CrearAnuncioPage implements OnInit {
     this.loadingCtrl.create({message: 'Creando anuncio...'})
     .then(loadingEl => {
       loadingEl.present();
-      this.servicioPerdidos.uploadImage(this.form.get('image').value);
-      console.log('Agregando anuncio...');
-      const anuncio: Anuncio = new Anuncio(
-            this.form.controls.nombrePerro.value,
-            this.form.controls.raza.value,
-            this.form.controls.descripcion.value,
-            this.form.controls.fechaPerdido.value,
-            this.form.get('location').value,
-            this.form.get('image').value
-      );
-      this.servicioPerdidos.agregarAnuncio(anuncio).subscribe(() => {
-        loadingEl.dismiss();
-        this.form.reset();
-        this.router.navigateByUrl('/dashboard-perdido');
+      console.log('image value', this.form.get('image').value);
+      if (typeof this.form.get('image').value !== 'string') {
+        console.log('NO ES UN STRING');
+        this.servicioPerdidos.uploadImage(this.form.get('image').value).pipe(switchMap(uploadRes => {
+          console.log('Agregando anuncio...');
+          console.log(uploadRes);
+          const anuncioASubir: Anuncio = new Anuncio(
+                this.form.controls.nombrePerro.value,
+                this.form.controls.raza.value,
+                this.form.controls.descripcion.value,
+                this.form.controls.fechaPerdido.value,
+                this.form.get('location').value,
+                (uploadRes as any).imageUrl
+             );
+          console.log('anuncio', anuncioASubir);
+          return this.servicioPerdidos.agregarAnuncio(anuncioASubir);
+        })).subscribe(() => {
+          loadingEl.dismiss();
+          this.form.reset();
+          this.router.navigateByUrl('/dashboard-perdido');
         });
-      });
+      } else {
+        this.servicioPerdidos.uploadImage(this.form.get('image').value);
+        console.log('Agregando anuncio...');
+        const anuncio: Anuncio = new Anuncio(
+              this.form.controls.nombrePerro.value,
+              this.form.controls.raza.value,
+              this.form.controls.descripcion.value,
+               this.form.controls.fechaPerdido.value,
+              this.form.get('location').value,
+              this.form.get('image').value
+          );
+        console.log('anuncio', anuncio);
+        this.servicioPerdidos.agregarAnuncio(anuncio).subscribe(() => {
+            loadingEl.dismiss();
+            this.form.reset();
+            this.router.navigateByUrl('/dashboard-perdido');
+        });
+      }
+    });
   }
 
 }

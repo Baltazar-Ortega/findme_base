@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Encontrado } from './encontrado.model';
 import { PlaceLocation } from '../componentes/location.model';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-formulario-encontrado',
@@ -49,28 +50,51 @@ export class FormularioEncontradoPage implements OnInit {
   onCrearAnuncioEncontrado() {
     if (!this.form.valid || !this.form.get('image').value) {
       return;
-    } 
+    }
     this.checkValidado = true;
     this.loadingCtrl.create({ message: 'Mensaje enviado' })
       .then(loadingEl => {
         loadingEl.present();
-        this.encontradosService.uploadImage(this.form.get('image').value);
-        console.log('Agregando anuncio...');
-        const encontrado: Encontrado = new Encontrado(
-          this.form.controls.fechaEncontrado.value,
-          this.form.controls.mensaje.value,
-          this.form.get('image').value,
-          this.form.get('location').value
-        );
-        this.encontradosService.mandarAnuncioEncontrado(encontrado)
-          .subscribe(() => {
-            this.router.navigateByUrl('/dashboard-encontrado'); 
+        console.log('image value', this.form.get('image').value);
+
+        if (typeof this.form.get('image').value !== 'string') {
+          console.log('NO ES UN STRING');
+          this.encontradosService.uploadImage(this.form.get('image').value).pipe(switchMap(uploadRes => {
+            console.log('Agregando anuncio...');
+            const encontradoASubir: Encontrado = new Encontrado(
+              this.form.controls.fechaEncontrado.value,
+              this.form.controls.mensaje.value,
+              (uploadRes as any).imageUrl,
+              this.form.get('location').value
+            );
+            return this.encontradosService.mandarAnuncioEncontrado(encontradoASubir)
+          })).subscribe(() => {
+            this.router.navigateByUrl('/dashboard-encontrado');
             loadingEl.dismiss();
             this.form.reset();
             this.form.value.image = null;
             this.form.value.location = null;
-          });
-      });
+          })
+        } else {
+          this.encontradosService.uploadImage(this.form.get('image').value);
+          console.log('Agregando anuncio...');
+          const encontrado: Encontrado = new Encontrado(
+            this.form.controls.fechaEncontrado.value,
+            this.form.controls.mensaje.value,
+            this.form.get('image').value,
+            this.form.get('location').value
+          );
+          this.encontradosService.mandarAnuncioEncontrado(encontrado)
+            .subscribe(() => {
+              this.router.navigateByUrl('/dashboard-encontrado'); 
+              loadingEl.dismiss();
+              this.form.reset();
+              this.form.value.image = null;
+              this.form.value.location = null;
+            });
+        } // Fin del else
+
+      }); // Fin del then
   }
 
 }

@@ -35,14 +35,27 @@ export class PerrosEncontradosService {
     return this.http.post('https://findme-proyecto-9d68a.firebaseio.com/mensajes-encontrados.json', data);
   }
 
-  uploadImage(image: string) {
-    const imageFile = base64toBlob(image.replace('data:image/jpeg;base64,', ''), 'image/jpeg');
-    console.log('SERVICIO uploadImage'); 
-    console.log(typeof imageFile); // No se convirtió en File
-    /* Retornará un observable, url es una url que podemos agarrar de donde sea, y path es la imagen local desde el backend*/
-    return this.http.post(
-      'https://us-central1-findme-proyecto-9d68a.cloudfunctions.net/storeImage',
-      imageFile
-    );
+  uploadImage(image: string | File) {
+    console.log('En uploadImage');
+    if (typeof image === 'string') {
+      console.log('Tipo de dato string');
+      const imageFile = base64toBlob(image.replace('data:image/jpeg;base64,', ''), 'image/jpeg');
+      console.log('SERVICIO uploadImage'); 
+      console.log(typeof imageFile); // No se convirtió en File
+      /* Retornará un observable, url es una url que podemos agarrar de donde sea, y path es la imagen local desde el backend*/
+      return this.http.post(
+        'https://us-central1-findme-proyecto-9d68a.cloudfunctions.net/storeImage',
+        imageFile
+      );
+    } else {
+      console.log('Tipo de dato file');
+      const uploadData = new FormData();
+      uploadData.append('image', image);
+      /* Retornará un observable, url es una url que podemos agarrar de donde sea, y path es la imagen local desde el backend*/
+      return this.http.post<{imageUrl: string, imagePath: string}>(
+        'https://us-central1-findme-proyecto-9d68a.cloudfunctions.net/storeImage',
+        uploadData
+      );
+    }
   }
 }

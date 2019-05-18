@@ -24,10 +24,9 @@ export class ImagePickerComponent implements OnInit {
   @Input() showPreview = false; // para resetear si se vuelve a entrar
   @Input() tipoAccesoFotos = false;
   selectedImage: any;
-  usePicker = false;
+  usePicker = true;
 
-  constructor(private platform: Platform, private camera: Camera) { 
-    
+  constructor(private platform: Platform, private camera: Camera) {
   }
 
   ngOnInit() {
