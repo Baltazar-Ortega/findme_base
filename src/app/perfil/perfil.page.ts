@@ -1,5 +1,5 @@
-import { AuthService } from './../servicios/auth.service';
 import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-perfil',
@@ -7,19 +7,42 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
-  usuarioActual: any;
-  constructor(private authService: AuthService) { }
+
+  public inputVal:string;
+  public titulo:string;
+  public t:string;
+
+  public titulo2:string;
+  public f:string;
+
+  public titulo3:string;
+  public d:string;
+
+  constructor() { 
+    this.titulo = "Introduzca numero telefonico";
+    this.titulo2 = "Introduzca nombre en Facebook";
+    this.titulo3 = "Introduzca los detalles";
+  }
+
+  buttonClick(telefono: string){
+    alert(telefono);
+    this.titulo = telefono;
+    this.t = "";
+  }
+
+  buttonClick2(facebook: string){
+    alert(facebook);
+    this.titulo2 = facebook;
+    this.f = "";
+  }
+
+  buttonClick3(detalles: string){
+    alert(detalles);
+    this.titulo3 = detalles;
+    this.d = "";
+  }
 
   ngOnInit() {
-    this.obtenerUsuarioActual();
   }
-
-  obtenerUsuarioActual() {
-    this.authService.getActualUser().then(actualUser => {
-      this.usuarioActual = actualUser;
-    });
-  }
-
-
 
 }
