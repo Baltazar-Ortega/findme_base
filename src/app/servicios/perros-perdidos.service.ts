@@ -55,20 +55,25 @@ export class PerrosPerdidosService implements AfterViewInit {
           console.log('Mi centro', this.centro);
     });
     return this.http.get('https://findme-proyecto-9d68a.firebaseio.com/anuncios.json').pipe(map(resData => {
-      const perrosPerdidos: Array<any> =  [];
+      const perros: Array<any> =  [];
       for (const key in resData) {
         if (resData.hasOwnProperty(key)) {
-          perrosPerdidos.push({
+          perros.push({
             key,
             nombrePerro: resData[key].nombrePerro,
             raza: resData[key].raza,
             descripcion: resData[key].descripcion,
             fechaPerdido: new Date(resData[key].fechaPerdido),
+            duenoId: resData[key].duenoId,
+            perdido: resData[key].perdido,
             image: resData[key].image,
             location: resData[key].location
           });
         }
       }
+      // Solo perros encontrados
+      const perrosPerdidos = perros.filter(perro => perro.perdido === true);
+      console.log('Perros Perdidos, filter', perrosPerdidos);
       if (filtroValue === 'all') {
         return perrosPerdidos;
       } else  {
@@ -82,14 +87,11 @@ export class PerrosPerdidosService implements AfterViewInit {
               const marcador = new googleMaps.LatLng(position.lat, position.lng);
               const centroLatLng = new this.googleMaps.LatLng(this.centro.lat, this.centro.lng);
               const distanciaEnKm = this.googleMaps.geometry.spherical.computeDistanceBetween(marcador, centroLatLng) / 1000;
-              //console.log(distanciaEnKm);
-              if (distanciaEnKm <= parseFloat(filtroValue)) { // En realidad es 5, solo por pruebas está en 150
-                //console.log('Si cumple <=');
+              if (distanciaEnKm <= parseFloat(filtroValue)) { 
                 aDistancia = true;
               }
             });
             if (aDistancia) {
-              //console.log('Si hubo true');
               perrosFiltrados.push(anuncio);
               console.log(perrosFiltrados);
             }

@@ -1,7 +1,7 @@
 import { DetalleEncontradoComponent } from './../encontrados/detalle-encontrado/detalle-encontrado.component';
-import { PerrosPerdidosService } from './../servicios/perros-perdidos.service';
 import { ModalController } from '@ionic/angular';
 import { Component } from '@angular/core';
+import { PerrosEncontradosService } from '../servicios/perros-encontrados.service';
 
 @Component({
   selector: 'app-tab2',
@@ -14,7 +14,7 @@ export class Tab2Page {
   filtro = false;
   listaPerros: any;
   listaLista = false;
-  constructor(private perrosPerdidosServicio: PerrosPerdidosService,
+  constructor(private perrosEncontradosServicio: PerrosEncontradosService,
               public modal: ModalController) {}
 
 // tslint:disable-next-line: use-life-cycle-interface
@@ -24,13 +24,13 @@ export class Tab2Page {
 
   obtenerAnuncios() {
     const filtroValue = this.selectKm;
-    this.perrosPerdidosServicio.obtenerAnuncios(filtroValue).subscribe(datos => {
+    this.perrosEncontradosServicio.obtenerAnuncios(filtroValue).subscribe(datos => {
       console.log('Datos traidos del servicio', datos);
-      this.perrosPerdidosServicio.todosPerrosPerdidos = datos;
-      console.log(this.perrosPerdidosServicio.todosPerrosPerdidos);
+      this.perrosEncontradosServicio.todosPerrosEncontrados = datos;
+      console.log(this.perrosEncontradosServicio.todosPerrosEncontrados);
 
       // segun el filtro
-      this.listaPerros = this.perrosPerdidosServicio.todosPerrosPerdidos;
+      this.listaPerros = this.perrosEncontradosServicio.todosPerrosEncontrados;
       console.log('MI LISTA DE PERROS', this.listaPerros);
       console.log('Ubicacion del primer perro', this.listaLista[0]);
     }, error => {
@@ -42,7 +42,7 @@ export class Tab2Page {
   }
 
   obtenerAnuncio(key: string) {
-    const perro = this.perrosPerdidosServicio.obtenerAnuncio(key);
+    const perro = this.perrosEncontradosServicio.obtenerAnuncio(key);
     console.log(perro);
   }
 

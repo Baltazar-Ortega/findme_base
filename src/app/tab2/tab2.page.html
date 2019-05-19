@@ -7,11 +7,35 @@
 </ion-header>
 
 <ion-content>
+    
     <ion-grid>
         <ion-row class="ion-align-items-center" padding>
           <ion-col text-center><h4>Volvimos con nuestros dueños 🤗🐶</h4></ion-col>
         </ion-row>
       </ion-grid>
+    <ion-grid>
+          <ion-row class="ion-align-items-center" padding>
+            <ion-col size="9"><h3>Cerca de ti </h3></ion-col>
+            <ion-col size="3">
+                <ion-button color="secondary" (click)="onFiltrar()">Filtro</ion-button>
+            </ion-col>
+          </ion-row>
+    </ion-grid>
+    <div *ngIf="filtro" class="ion-text-end" padding>
+        <ion-item >
+          <ion-label>Kilometros</ion-label>
+          <ion-select value="all" okText="Okay" cancelText="Cancelar" [(ngModel)]="selectKm">
+              <ion-select-option value="all">Sin filtro</ion-select-option>
+            <ion-select-option value="5">5</ion-select-option>
+            <ion-select-option value="10">10</ion-select-option>
+            <ion-select-option value="15">15</ion-select-option>
+            <ion-select-option value="20">20</ion-select-option>
+            <ion-select-option value="25">25</ion-select-option>
+            <ion-select-option value="30">30</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button (click)="obtenerAnuncios()" class="ion-margin-top ion-margin-right">Aplicar</ion-button>
+      </div>
     <ion-list>
       <ion-item *ngFor="let perro of listaPerros">
         <ion-card>
@@ -26,13 +50,26 @@
             <ion-button (click)="updateLikes(perro)" color="light"><ion-icon name="thumbs-up"></ion-icon></ion-button>
             <ion-button (click)="compartir()" color="primary"><ion-icon name="share"></ion-icon></ion-button>
           </ion-card-content>
-          
-          <ion-card-content>
-            {{perro.descripcion}}
-          </ion-card-content>
-          <ion-text>Se perdió el: {{ formatoFecha(perro.fechaPerdido) }}</ion-text>
+          <h5 padding>Recuperado el: {{ formatoFecha(perro.fechaPerdido) }}</h5>
         </ion-card>
       </ion-item>
     </ion-list>
+
+    <ion-item>
+        <ion-card>
+            <ion-card-header>
+              <img src="assets/imagenes/husky.gif" alt="" class="imagen">
+            </ion-card-header>
+            <ion-card-content>
+                <ion-card-title>¿Algo no funciona bien?</ion-card-title>
+                <ion-card-subtitle>Dejanos tus comentarios</ion-card-subtitle>
+            </ion-card-content>
+          </ion-card>
+    </ion-item>
+    
 </ion-content>
+
+<ion-footer>
+  
+</ion-footer>
 

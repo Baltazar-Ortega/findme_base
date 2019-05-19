@@ -1,11 +1,25 @@
 <ion-header>
 
-  <ion-toolbar color="primary">
-    <ion-button slot="start" fill="clear" (click)="closeDetalle()"><ion-icon name="close"></ion-icon></ion-button>
-  <ion-title>Mas sobre mi :) !</ion-title>
-  </ion-toolbar>
-  </ion-header>
-<p>
-  detalle-encontrado works!
-</p>
-
+    <ion-toolbar color="tertiary">
+      <ion-button slot="start" fill="clear" (click)="closeDetalle()" color="light"><ion-icon name="close"></ion-icon></ion-button>
+    <ion-title>Mas sobre mi :) !</ion-title>
+    </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-item class="ion-margin-top">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Mi nombre es: {{perro.nombrePerro}}</ion-card-title>
+              <ion-card-subtitle>y me dijeron que soy: {{perro.raza}}</ion-card-subtitle>
+            </ion-card-header>
+            <img class="imagen" [src]="perro.image">
+            <h4 padding>Me encontraron hace poco</h4>
+            <div padding text-center>
+                <h3>GRACIAS POR TU APOYO</h3>
+                <p padding>Juntos podemos ayudar a que mas perros regresen con sus dueños</p>
+                <img src="assets/imagenes/imback.gif" alt="" class="imagen-gif ion-margin-bottom">
+                <ion-button routerLink="/">Ver perros perdidos</ion-button>
+            </div>
+          </ion-card>
+        </ion-item>
+    </ion-content>

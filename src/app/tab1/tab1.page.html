@@ -21,7 +21,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-    <div *ngIf="filtro" class="ion-text-end">
+    <div *ngIf="filtro" class="ion-text-end" padding>
       <ion-item >
         <ion-label>Kilometros</ion-label>
         <ion-select value="all" okText="Okay" cancelText="Cancelar" [(ngModel)]="selectKm">
@@ -53,7 +53,7 @@
           <ion-card-content>
             {{perro.descripcion}}
           </ion-card-content>
-          <ion-text>Se perdió el: {{ formatoFecha(perro.fechaPerdido) }}</ion-text> 
+          <h5 padding>Se perdió el: {{ formatoFecha(perro.fechaPerdido) }}</h5> 
         </ion-card>
       </ion-item>
     </ion-list>
