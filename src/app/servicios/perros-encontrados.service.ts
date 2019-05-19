@@ -114,6 +114,7 @@ export class PerrosEncontradosService {
     return this.http.post('https://findme-proyecto-9d68a.firebaseio.com/mensajes-encontrados.json', data);
   }
 
+
   uploadImage(image: string | File) {
     console.log('En uploadImage');
     if (typeof image === 'string') {

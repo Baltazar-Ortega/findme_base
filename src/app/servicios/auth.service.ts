@@ -3,6 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { resolve } from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,7 @@ export class AuthService implements OnInit {
           resolve(user);
         } else {
           console.log('Usuario NOT signed in');
+          rejected(user);
         }
       });
     });
@@ -103,6 +105,26 @@ export class AuthService implements OnInit {
         });
       });
     });
+  }
+
+  
+
+  updateUser(user) {
+    this.updateUserinDB(user).subscribe(res => {
+      const currentUser = this.AFauth.auth.currentUser;
+      currentUser.updateEmail(user.email);
+      currentUser.updateProfile({displayName: user.nombreUsuario}).then(_ => {
+        console.log('this.currentuser', this.AFauth.auth.currentUser);
+        console.log('currentuser', currentUser);
+        this.AFauth.auth.updateCurrentUser(currentUser).then(_ => {
+          console.log('usuario actualizado');
+        });
+      });
+    });
+  }
+
+  updateUserinDB(user) {
+    return this.http.put(`https://findme-proyecto-9d68a.firebaseio.com/usuarios/${user.key}.json`, user);
   }
 
 }

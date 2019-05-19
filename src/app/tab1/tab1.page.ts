@@ -86,9 +86,7 @@ export class Tab1Page {
 
   }
 
-  onLogout() {
-    this.authService.logout();
-  }
+  
 
   goFormularioEncontrado(perro) {
     this.loEncontre.setPerroSeleccionado(perro);

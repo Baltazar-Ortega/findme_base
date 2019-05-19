@@ -75,6 +75,7 @@ export class PerrosPerdidosService implements AfterViewInit {
       const perrosPerdidos = perros.filter(perro => perro.perdido === true);
       console.log('Perros Perdidos, filter', perrosPerdidos);
       if (filtroValue === 'all') {
+        this.todosPerrosPerdidos = perrosPerdidos;
         return perrosPerdidos;
       } else  {
         const perrosFiltrados = [];
@@ -98,6 +99,7 @@ export class PerrosPerdidosService implements AfterViewInit {
           });
         }); // Fin getGoogleMaps
         console.log(`Perros filtrados ${filtroValue} km`, perrosFiltrados);
+        this.todosPerrosPerdidos = perrosFiltrados;
         return perrosFiltrados;
       }
     })
@@ -110,14 +112,15 @@ export class PerrosPerdidosService implements AfterViewInit {
   }
 
   obtenerAnuncio(key: string) {
-    let perro: any;
+    let anuncios: any[] = [];
+    console.log('this.todosPerrosPerdidos', this.todosPerrosPerdidos);
     this.todosPerrosPerdidos.forEach(el => {
-      if(el.key === key){
+      if(el.duenoId === key){
         console.log('encontrado');
-        perro = el;
+        anuncios.push(el);
       }
     });
-    return perro;
+    return anuncios;
   }
 
   updateLikes(id: any, anuncio: any){

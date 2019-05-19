@@ -4,20 +4,24 @@
       findme
     </ion-title>
     <ion-buttons slot="primary">
-      <ion-icon name="add" routerLink="/crear-anuncio"></ion-icon>
-      <ion-icon name="happy" routerLink="/formulario-encontrado" color="tertiary"></ion-icon>
-      <ion-icon name="contact" routerLink="/perfil" color="tertiary"></ion-icon>
-      <ion-button (click)="onLogout()">Logout</ion-button> <!-- Temporalmente esta aqui, por pruebas -->
+      <ion-icon padding color="dark" name="contact" routerLink="/perfil" class="icono-usuario"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-grid padding class="ion-margin-top ion-justify-content-between">
+    <ion-row>
+      <ion-col size="8"><h2>Perdi a mi perro 😭</h2></ion-col>
+      <ion-col size="4" class="boton-publicar"><ion-button color="danger" routerLink="/crear-anuncio">Publicar <br> anuncio</ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+
   <ion-grid>
     <ion-row class="ion-align-items-center" padding>
       <ion-col size="9"><h3>Cerca de ti 🐕</h3></ion-col>
       <ion-col size="3">
-          <ion-button color="secondary" (click)="onFiltrar()">Filtro</ion-button>
+          <ion-button color="secondary" (click)="onFiltrar()"><ion-text color="light">Filtro</ion-text></ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content padding>
-  <div *ngIf="usuarioActual">
-      <h2 text-center>{{usuarioActual.nombreUsuario}}</h2>
+  <div *ngIf="usuarioActual" padding>
+      <h2 text-center class="ion-margin-bottom">{{usuarioActual.nombreUsuario}}</h2>
       <ion-card>
         <ion-card-header>
            <ion-card-title text-center>Informacion de contacto</ion-card-title>
@@ -29,15 +29,26 @@
        </ion-row>
      </ion-grid>
 
-     <h3 padding text-center>Mis Anuncios</h3>
-     <div *ngIf="!anuncios"><h4>No tienes anuncios</h4></div>
-     <ion-grid>
-       <ion-row>
-          <ion-col>Campeon</ion-col>
-       </ion-row>
-     </ion-grid>
+     <h3 padding text-center>Mis Anuncios {{anunciosUsuarioActual ? '😢' : ''}}</h3>
+     <h4 *ngIf="!anunciosUsuarioActual" text-center class="ion-margin-bottom">No tienes anuncios 😄</h4>
+     <ion-list *ngIf="anunciosUsuarioActual">
+        <ion-item *ngFor="let anuncio of anunciosUsuarioActual">
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>{{anuncio.nombrePerro}}</ion-card-title>
+                <ion-card-subtitle>{{anuncio.raza}}</ion-card-subtitle>
+              </ion-card-header>
+              <img [src]="anuncio.image" alt="">
+              <ion-card-content>
+                  {{anuncio.descripcion}}
+                </ion-card-content>
+                <h5 padding>Se perdió el: {{ formatoFecha(anuncio.fechaPerdido) }}</h5> 
+            </ion-card>
+          </ion-item>
+     </ion-list>
+     
 
-     <h3 padding>Editar informacion de contacto</h3>
+     <h3 padding class="ion-margin-top">Editar informacion de contacto</h3>
      <form [formGroup]="form" *ngIf="usuarioActual">
         <ion-grid>
           <ion-row>
@@ -58,7 +69,7 @@
             </ion-row>
         </ion-grid>
       </form>
-      <ion-button [disabled]="!form.valid" padding>Guardar cambios</ion-button>
+      <ion-button [disabled]="!form.valid || mensajeCambios === 'Cambios guardados'" padding (click)="guardarCambios()">{{mensajeCambios}}</ion-button>
      
-        
+      <ion-button padding text-center class="boton-logout" color="danger" fill="outline" (click)="onLogout()">Cerrar sesion</ion-button>
 </ion-content>
