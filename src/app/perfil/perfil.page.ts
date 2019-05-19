@@ -1,4 +1,6 @@
+import { AuthService } from './../servicios/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 @Component({
@@ -7,42 +9,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
-
-  public inputVal:string;
-  public titulo:string;
-  public t:string;
-
-  public titulo2:string;
-  public f:string;
-
-  public titulo3:string;
-  public d:string;
-
-  constructor() { 
-    this.titulo = "Introduzca numero telefonico";
-    this.titulo2 = "Introduzca nombre en Facebook";
-    this.titulo3 = "Introduzca los detalles";
-  }
-
-  buttonClick(telefono: string){
-    alert(telefono);
-    this.titulo = telefono;
-    this.t = "";
-  }
-
-  buttonClick2(facebook: string){
-    alert(facebook);
-    this.titulo2 = facebook;
-    this.f = "";
-  }
-
-  buttonClick3(detalles: string){
-    alert(detalles);
-    this.titulo3 = detalles;
-    this.d = "";
+  usuarioActual: any;
+  form: FormGroup;
+  anuncios = false;
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit() {
+    this.obtenerUsuario();
+    this.form = new FormGroup({
+      nombreUsuario: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required, Validators.maxLength(180)]
+      }),
+      email: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required, Validators.maxLength(180)]
+      })
+    });
   }
+
+  obtenerUsuario() {
+    this.authService.getActualUser().then(usuarioActual => {
+      this.usuarioActual = usuarioActual;
+    });
+  }
+
 
 }

@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/dashboard-encontrado" color="secondary"></ion-back-button>
+      <ion-back-button defaultHref="/dashboard-encontrado" color="dark"></ion-back-button>
     </ion-buttons>
-    <ion-title color="secondary">Encontré a Kira</ion-title>
+    <ion-title color="dark">Encontré a {{perro.nombrePerro}}</ion-title>
     <ion-buttons slot="primary">
       <ion-button (click)="onCrearAnuncioEncontrado()" [disabled]="!form.valid">
         <ion-icon *ngIf="form.valid" name="checkmark" slot="icon-only" color="secondary"></ion-icon>

@@ -4,7 +4,8 @@ import { ModalController } from '@ionic/angular';
 import { strict } from 'assert';
 import { PerrosPerdidosService } from '../servicios/perros-perdidos.service';
 import { Component } from '@angular/core';
-import { ActivationEnd } from '@angular/router';
+import { ActivationEnd, Router } from '@angular/router';
+import { LoEncontreService } from '../servicios/lo-encontre.service';
 
 @Component({
   selector: 'app-tab1',
@@ -17,7 +18,9 @@ export class Tab1Page {
   listaPerros: any;
   listaLista = false;
 
-  constructor(private perrosPerdidosServicio: PerrosPerdidosService, public authService: AuthService, public modal: ModalController) {}
+  constructor(private perrosPerdidosServicio: PerrosPerdidosService, public authService: AuthService, public modal: ModalController,
+              private router: Router,
+              private loEncontre: LoEncontreService ) {}
 
 // tslint:disable-next-line: use-life-cycle-interface
   ngOnInit() {
@@ -85,6 +88,11 @@ export class Tab1Page {
 
   onLogout() {
     this.authService.logout();
+  }
+
+  goFormularioEncontrado(perro) {
+    this.loEncontre.setPerroSeleccionado(perro);
+    this.router.navigateByUrl('/formulario-encontrado');
   }
 
 }

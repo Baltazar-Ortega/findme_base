@@ -46,7 +46,7 @@
           </ion-card-header>
           <img class="imagen" [src]="perro.image">
           <ion-card-content text-end>
-            <ion-button Href="/formulario-encontrado" color="danger">Lo encontre!<ion-icon name="pin"></ion-icon></ion-button>
+            <ion-button (click)="goFormularioEncontrado(perro)" color="danger">Lo encontre!<ion-icon name="pin"></ion-icon></ion-button>
             <ion-button (click)="openDetalle(perro)" color="primary">detalles</ion-button>
             <ion-button (click)="compartir()"><ion-icon name="share"></ion-icon></ion-button>
           </ion-card-content>

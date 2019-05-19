@@ -1,4 +1,5 @@
-import { Router, ChildActivationEnd } from '@angular/router';
+import { LoEncontreService } from './../../servicios/lo-encontre.service';
+import { Router, ChildActivationEnd, ActivatedRoute } from '@angular/router';
 import { PerrosEncontradosService } from './../../servicios/perros-encontrados.service';
 import { LoadingController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -15,13 +16,18 @@ import { switchMap } from 'rxjs/operators';
 export class FormularioEncontradoPage implements OnInit {
   form: FormGroup;
   checkValidado = false;
+  perro: any;
 
   constructor(
     private loadingCtrl: LoadingController,
     private encontradosService: PerrosEncontradosService,
-    private router: Router) { }
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private loEncontre: LoEncontreService) { }
 
   ngOnInit() {
+    this.perro = this.loEncontre.getPerroSeleccionado();
+    console.log('Perro seleccionado', this.perro);
     this.form = new FormGroup({
       mensaje: new FormControl(null, {
         updateOn: 'blur',

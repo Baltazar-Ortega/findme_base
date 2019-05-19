@@ -1,76 +1,64 @@
 <ion-header >
-  <ion-toolbar >
+  <ion-toolbar color="primary">
     <ion-buttons  slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title   >perfil</ion-title>
-    <ion-fab-button slot="end">
-        <ion-icon name="add"></ion-icon>
-    </ion-fab-button> 
+    <ion-title>Mi Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <div *ngIf="usuarioActual">
+      <h2 text-center>{{usuarioActual.nombreUsuario}}</h2>
+      <ion-card>
+        <ion-card-header>
+           <ion-card-title text-center>Informacion de contacto</ion-card-title>
+        </ion-card-header>
+         <ion-card-content>
+             <p>Telefono: 888888</p>
+             <p>Email: {{usuarioActual.email}}</p>
+         </ion-card-content>
+      </ion-card>
+  </div>
+    
+        
+     <ion-grid>
+       <ion-row class="row-subir-anuncio">
+         <ion-col size="8" ><h1 text-center >Subir anuncio</h1></ion-col>
+         <ion-col size="3"><ion-icon name="add-circle" color="danger" routerLink="/crear-anuncio"></ion-icon></ion-col>
+       </ion-row>
+     </ion-grid>
 
-    <div *ngIf="usuarioActual" padding>
-        <h2>Nombre: {{usuarioActual.nombreUsuario}}</h2>
-        <h3>Email: {{usuarioActual.email}}</h3>
-        <h4>Password: {{usuarioActual.password}}</h4>
-        <h5>uid de autenticacion: {{usuarioActual.uid}}</h5>
-        <h6>Id de base de datos: {{usuarioActual.key}}</h6>
-    </div>
+     <h3 padding text-center>Mis Anuncios</h3>
+     <div *ngIf="!anuncios"><h4>No tienes anuncios</h4></div>
+     <ion-grid>
+       <ion-row>
+          <ion-col>Campeon</ion-col>
+       </ion-row>
+     </ion-grid>
+
+     <h3 padding>Editar informacion de contacto</h3>
+     <form [formGroup]="form" *ngIf="usuarioActual">
+        <ion-grid>
+          <ion-row>
+            <ion-col size-sm="6" offset-sm="3">
+              <ion-item class="ion-margin-top">
+                <ion-label>Nombre de usuario</ion-label>
+                <ion-input formControlName="nombreUsuario" [placeholder]="usuarioActual.nombreUsuario"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size-sm="6" offset-sm="3">
+                <ion-item class="ion-margin-top">
+                  <ion-label >Email</ion-label>
+                  <ion-input type="email" formControlName="email" [placeholder]="usuarioActual.email"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+        </ion-grid>
+      </form>
+      <ion-button [disabled]="!form.valid" padding>Guardar cambios</ion-button>
      
-      <ion-card-content>
-          <ion-card-title text-center>
-            <H1 > Datos: </H1>
-            <p>Telefono: {{titulo}}</p>
-            <p>Facebook: {{titulo2}}</p>
-            <p>Detalles: {{titulo3}}</p>
-          </ion-card-title>
-        </ion-card-content>
         
-        <ion-list>
-        <ion-item *ngFor="let i of [1,1]">
-            <ion-avatar slot="start">
-              <img src="assets/dog.jpg">
-            </ion-avatar>
-            <ion-label>Datos</ion-label>
-
-            <ion-fab horizontal="end">
-            <ion-fab-button >
-              <ion-icon name="more"></ion-icon>
-          </ion-fab-button>
-          <ion-fab-list side="start">
-            <ion-fab-button><ion-icon name="close"></ion-icon></ion-fab-button>
-            <ion-fab-button><ion-icon name="photos"></ion-icon></ion-fab-button>
-            <ion-fab-button><ion-icon name="create"></ion-icon></ion-fab-button>
-          </ion-fab-list>
-        </ion-fab>
-      </ion-item>
-        </ion-list>
-        
-        <ion-list>
-        <ion-item>
-        <ion-label color="primary" floating>Telefono:</ion-label>
-        <ion-input #telefono  >{{t}}</ion-input>
-      </ion-item>
-        </ion-list>
-    <button ion-button round (click)="buttonClick(telefono.value)">Actualizar</button>
-
-    <ion-list>
-        <ion-item>
-        <ion-label color="primary" floating>Facebook:</ion-label>
-        <ion-input #facebook >{{f}}</ion-input>
-      </ion-item>
-        </ion-list>
-    <button ion-button round (click)="buttonClick2(facebook.value)">Actualizar</button>
-       
-    <ion-list>
-      <ion-item>
-      <ion-label color="primary" floating>Detalles:</ion-label>
-      
-      <ion-textarea #detalles aria-placeholder=" Text" row="10">{{d}}</ion-textarea>
-    </ion-item>
-      </ion-list>
-  <button ion-button round (click)="buttonClick3(detalles.value)">Actualizar</button>
 </ion-content>
