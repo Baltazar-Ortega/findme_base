@@ -1,9 +1,38 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Tab Two
+      findme
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+    <ion-grid>
+        <ion-row class="ion-align-items-center" padding>
+          <ion-col text-center><h4>Volvimos con nuestros dueños 🤗🐶</h4></ion-col>
+        </ion-row>
+      </ion-grid>
+    <ion-list>
+      <ion-item *ngFor="let perro of listaPerros">
+        <ion-card>
+          <ion-card-header color="danger">
+            <ion-card-title>{{perro.nombrePerro}}</ion-card-title>
+            <ion-card-subtitle>{{perro.raza}}</ion-card-subtitle>
+          </ion-card-header>
+          <img class="imagen" [src]="perro.image">
+          <ion-card-content text-end>
+            <ion-text text-size-adjust:20px >{{perro.likes}}</ion-text>
+            <ion-button (click)="openDetalle(perro)" color="primary" ><ion-text>Ver detalles</ion-text></ion-button>
+            <ion-button (click)="updateLikes(perro)" color="light"><ion-icon name="thumbs-up"></ion-icon></ion-button>
+            <ion-button (click)="compartir()" color="primary"><ion-icon name="share"></ion-icon></ion-button>
+          </ion-card-content>
+          
+          <ion-card-content>
+            {{perro.descripcion}}
+          </ion-card-content>
+          <ion-text>Se perdió el: {{ formatoFecha(perro.fechaPerdido) }}</ion-text>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+</ion-content>
+

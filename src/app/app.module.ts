@@ -18,10 +18,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Camera } from '@ionic-native/camera/ngx';
+import { DetallePerdidoComponent } from './perdidos/detalle-perdido/detalle-perdido.component';
+import { DetalleEncontradoComponent } from './encontrados/detalle-encontrado/detalle-encontrado.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, DetallePerdidoComponent, DetalleEncontradoComponent],
+  entryComponents: [DetallePerdidoComponent, DetalleEncontradoComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
   AngularFireModule.initializeApp(FIREBASE_CONFIG),
   AngularFireAuthModule, AngularFirestoreModule, FormsModule],

@@ -1,5 +1,7 @@
+import { DetallePerdidoComponent } from './../perdidos/detalle-perdido/detalle-perdido.component';
 import { AuthService } from './../servicios/auth.service';
-
+import { ModalController } from '@ionic/angular';
+import { strict } from 'assert';
 import { PerrosPerdidosService } from '../servicios/perros-perdidos.service';
 import { Component } from '@angular/core';
 import { ActivationEnd } from '@angular/router';
@@ -15,7 +17,7 @@ export class Tab1Page {
   listaPerros: any;
   listaLista = false;
 
-  constructor(private perrosPerdidosServicio: PerrosPerdidosService, public authService: AuthService) {}
+  constructor(private perrosPerdidosServicio: PerrosPerdidosService, public authService: AuthService, public modal: ModalController) {}
 
 // tslint:disable-next-line: use-life-cycle-interface
   ngOnInit() {
@@ -27,8 +29,6 @@ export class Tab1Page {
     this.perrosPerdidosServicio.obtenerAnuncios(filtroValue).subscribe(datos => {
       console.log('Datos traidos del servicio', datos);
       this.perrosPerdidosServicio.todosPerrosPerdidos = datos;
-      console.log(this.perrosPerdidosServicio.todosPerrosPerdidos);
-
       // segun el filtro
       this.listaPerros = this.perrosPerdidosServicio.todosPerrosPerdidos;
       console.log('MI LISTA DE PERROS', this.listaPerros);
@@ -64,6 +64,23 @@ export class Tab1Page {
     } else {
       this.filtro = false;
     }
+  }
+
+  openDetalle(perro) {
+    this.modal.create({
+      component: DetallePerdidoComponent,
+      componentProps: {
+        perro
+      }
+    }).then((modal) => modal.present());
+  }
+
+  updateLikes(anuncion: any, id: any){
+    this.perrosPerdidosServicio.updateLikes(anuncion, id);
+  }
+
+  compartir() {
+
   }
 
   onLogout() {
