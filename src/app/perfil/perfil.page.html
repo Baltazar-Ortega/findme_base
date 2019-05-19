@@ -1,16 +1,76 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title text-center>Mi Perfil</ion-title>
+<ion-header >
+  <ion-toolbar >
+    <ion-buttons  slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title   >perfil</ion-title>
+    <ion-fab-button slot="end">
+        <ion-icon name="add"></ion-icon>
+    </ion-fab-button> 
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div *ngIf="usuarioActual" padding>
-      <h2>Nombre: {{usuarioActual.nombreUsuario}}</h2>
-      <h3>Email: {{usuarioActual.email}}</h3>
-      <h4>Password: {{usuarioActual.password}}</h4>
-      <h5>uid de autenticacion: {{usuarioActual.uid}}</h5>
-      <h6>Id de base de datos: {{usuarioActual.key}}</h6>
-  </div>
-  
+<ion-content padding>
+
+    <div *ngIf="usuarioActual" padding>
+        <h2>Nombre: {{usuarioActual.nombreUsuario}}</h2>
+        <h3>Email: {{usuarioActual.email}}</h3>
+        <h4>Password: {{usuarioActual.password}}</h4>
+        <h5>uid de autenticacion: {{usuarioActual.uid}}</h5>
+        <h6>Id de base de datos: {{usuarioActual.key}}</h6>
+    </div>
+     
+      <ion-card-content>
+          <ion-card-title text-center>
+            <H1 > Datos: </H1>
+            <p>Telefono: {{titulo}}</p>
+            <p>Facebook: {{titulo2}}</p>
+            <p>Detalles: {{titulo3}}</p>
+          </ion-card-title>
+        </ion-card-content>
+        
+        <ion-list>
+        <ion-item *ngFor="let i of [1,1]">
+            <ion-avatar slot="start">
+              <img src="assets/dog.jpg">
+            </ion-avatar>
+            <ion-label>Datos</ion-label>
+
+            <ion-fab horizontal="end">
+            <ion-fab-button >
+              <ion-icon name="more"></ion-icon>
+          </ion-fab-button>
+          <ion-fab-list side="start">
+            <ion-fab-button><ion-icon name="close"></ion-icon></ion-fab-button>
+            <ion-fab-button><ion-icon name="photos"></ion-icon></ion-fab-button>
+            <ion-fab-button><ion-icon name="create"></ion-icon></ion-fab-button>
+          </ion-fab-list>
+        </ion-fab>
+      </ion-item>
+        </ion-list>
+        
+        <ion-list>
+        <ion-item>
+        <ion-label color="primary" floating>Telefono:</ion-label>
+        <ion-input #telefono  >{{t}}</ion-input>
+      </ion-item>
+        </ion-list>
+    <button ion-button round (click)="buttonClick(telefono.value)">Actualizar</button>
+
+    <ion-list>
+        <ion-item>
+        <ion-label color="primary" floating>Facebook:</ion-label>
+        <ion-input #facebook >{{f}}</ion-input>
+      </ion-item>
+        </ion-list>
+    <button ion-button round (click)="buttonClick2(facebook.value)">Actualizar</button>
+       
+    <ion-list>
+      <ion-item>
+      <ion-label color="primary" floating>Detalles:</ion-label>
+      
+      <ion-textarea #detalles aria-placeholder=" Text" row="10">{{d}}</ion-textarea>
+    </ion-item>
+      </ion-list>
+  <button ion-button round (click)="buttonClick3(detalles.value)">Actualizar</button>
 </ion-content>
