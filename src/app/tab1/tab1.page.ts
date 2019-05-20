@@ -1,3 +1,5 @@
+import { FelicidadesEncontradoComponent } from './../encontrados/felicidades-encontrado/felicidades-encontrado.component';
+import { MensajesEncontradosService } from './../servicios/mensajes-encontrados.service';
 import { DetallePerdidoComponent } from './../perdidos/detalle-perdido/detalle-perdido.component';
 import { AuthService } from './../servicios/auth.service';
 import { ModalController } from '@ionic/angular';
@@ -17,14 +19,52 @@ export class Tab1Page {
   filtro = false;
   listaPerros: any;
   listaLista = false;
+  mensajesEncontrados: any;
+  siHayEncontrados = false;
 
   constructor(private perrosPerdidosServicio: PerrosPerdidosService, public authService: AuthService, public modal: ModalController,
               private router: Router,
-              private loEncontre: LoEncontreService ) {}
+              private loEncontre: LoEncontreService,
+              private msgEncontradosService: MensajesEncontradosService ) {}
 
 // tslint:disable-next-line: use-life-cycle-interface
   ngOnInit() {
     this.obtenerAnuncios();
+  }
+
+  getEstadoMisAnuncios() {
+    // Recorrer mensajes-encontrados y checar si está mi id en duenoId de algun mensaje
+    this.msgEncontradosService.getMensajesEncontrados().subscribe(res => {
+      this.mensajesEncontrados = res;
+      console.log('mensajesEncontrados', this.mensajesEncontrados);
+      if (this.mensajesEncontrados.length > 0) {
+        console.log('Si es mayor a cero');
+        this.siHayEncontrados = true;
+      }
+      this.authService.getActualUser().then(actualUser => {
+        // Obtener el array de los mensajes
+        const misMensajesRecibidos: Array<any> = this.mensajesEncontrados.filter(mensaje => mensaje.duenoId === (actualUser as any).key);
+        console.log('Mis mensajes recibidos', misMensajesRecibidos);
+        if (misMensajesRecibidos.length > 0) {
+          // Mostrar un modal con el mensaje (irse de uno en uno)
+          // Ese modal contiene info del perro y del rescatista
+          // Le mando el actualUser y cada mensaje. Y obtengo la informacion del perro y el rescatista desde ese componente
+          console.log('primer mensaje', misMensajesRecibidos[0]);
+          for (let i = 0; i < misMensajesRecibidos.length; i++) {
+            this.modal.create({
+              component: FelicidadesEncontradoComponent,
+              componentProps: {
+                actualUser,
+                mensaje: misMensajesRecibidos[i]
+              }
+            }).then((modal) => modal.present());
+            console.log('Control del for, valor de i = ', i);
+          }
+        } else {
+          console.log('No han encontrado a tus perros o no tienes anuncios');
+        }
+      }); // Fin del then de getActualUser
+    }); // Fin de suscripcion de mensajes-encontrados
   }
 
   obtenerAnuncios() {
@@ -40,6 +80,7 @@ export class Tab1Page {
     }, () => {
       console.log('completado');
       this.listaLista = true;
+      this.getEstadoMisAnuncios();
     });
   }
 

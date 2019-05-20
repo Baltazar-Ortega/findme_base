@@ -20,10 +20,11 @@ import { AppComponent } from './app.component';
 import { Camera } from '@ionic-native/camera/ngx';
 import { DetallePerdidoComponent } from './perdidos/detalle-perdido/detalle-perdido.component';
 import { DetalleEncontradoComponent } from './encontrados/detalle-encontrado/detalle-encontrado.component';
+import { FelicidadesEncontradoComponent } from './encontrados/felicidades-encontrado/felicidades-encontrado.component';
 
 @NgModule({
-  declarations: [AppComponent, DetallePerdidoComponent, DetalleEncontradoComponent],
-  entryComponents: [DetallePerdidoComponent, DetalleEncontradoComponent],
+  declarations: [AppComponent, DetallePerdidoComponent, DetalleEncontradoComponent, FelicidadesEncontradoComponent],
+  entryComponents: [DetallePerdidoComponent, DetalleEncontradoComponent, FelicidadesEncontradoComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
   AngularFireModule.initializeApp(FIREBASE_CONFIG),
   AngularFireAuthModule, AngularFirestoreModule, FormsModule],

@@ -85,7 +85,7 @@ export class AuthService implements OnInit {
     }));
   }
 
-  getActualUser() {
+  getActualUser() { // De la base de datos realtime de firebase
     let usuarioActual = null;
     return new Promise((resolve, rejected) => {
       this.getUsers().subscribe(usuarios => {

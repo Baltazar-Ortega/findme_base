@@ -1,20 +1,23 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>
-      findme
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-title>
+          findme
+        </ion-title>
+        <ion-buttons slot="primary">
+          <ion-icon padding color="dark" name="contact" routerLink="/perfil" class="icono-usuario"></ion-icon>
+        </ion-buttons>
+      </ion-toolbar>
 </ion-header>
 
 <ion-content>
     
     <ion-grid>
-        <ion-row class="ion-align-items-center" padding>
-          <ion-col text-center><h4>Volvimos con nuestros dueños 🤗🐶</h4></ion-col>
+        <ion-row class="ion-align-items-center row-casa" padding>
+          <ion-col text-center><h3>Regresamos a casa 🤗🐶</h3></ion-col>
         </ion-row>
       </ion-grid>
     <ion-grid>
-          <ion-row class="ion-align-items-center" padding>
+          <ion-row class="ion-align-items-center" padding class="row-cerca-de-ti">
             <ion-col size="9"><h3>Cerca de ti </h3></ion-col>
             <ion-col size="3">
                 <ion-button color="secondary" (click)="onFiltrar()"><ion-text color="light">Filtro</ion-text></ion-button>
@@ -61,7 +64,7 @@
               <img src="assets/imagenes/husky.gif" alt="" class="imagen">
             </ion-card-header>
             <ion-card-content>
-                <ion-card-title>¿Algo no funciona bien?</ion-card-title>
+                <ion-card-title>¿Algo no funciona bien o te gustaria <br>añadirle algo a la app?</ion-card-title>
                 <ion-card-subtitle>Dejanos tus comentarios</ion-card-subtitle>
             </ion-card-content>
           </ion-card>

@@ -1,0 +1,54 @@
+<ion-header>
+
+  <ion-toolbar color="danger">
+    <ion-button slot="start" fill="clear" (click)="closeDetalle()" color="light"><ion-icon name="close"></ion-icon></ion-button>
+  <ion-title color="light">Wow 🙌</ion-title>
+  </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="usuarioActual && perro && observador && mensaje" padding>
+    <ion-row>
+      <ion-col><h1 text-center>Hoy es tu dia {{usuarioActual.nombreUsuario}}</h1></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><h2 text-center>{{observador.nombreUsuario}} vió a {{perro.nombrePerro}}</h2></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center *ngIf="!mensaje.image"><h3>No tomó fotos</h3></ion-col>
+      <ion-col *ngIf="mensaje.image" text-center><img [src]="mensaje.image" class="imagen-perro-encontrado"></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><h3 text-center>Ubicacion</h3></ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col><img [src]="mensaje.location.staticMapImageUrl"></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Mensaje</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h4>{{mensaje.mensaje}}</h4>
+            <ion-text>Fecha en que lo vi {{mensaje.fechaEncontrado}}</ion-text>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>Datos de {{observador.nombreUsuario}}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <h4>Email: {{observador.email}}</h4>
+                <h4>Telefono: 8888-888</h4>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

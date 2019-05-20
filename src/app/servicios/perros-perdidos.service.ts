@@ -123,6 +123,16 @@ export class PerrosPerdidosService implements AfterViewInit {
     return anuncios;
   }
 
+  obtenerPerro(key: string) {
+    let perro = null;
+    this.todosPerrosPerdidos.forEach(el => {
+      if (key === el.key) {
+        perro = el;
+      }
+    });
+    return perro;
+  }
+
   updateLikes(id: any, anuncio: any){
     return this.http.put(`https://findme-proyecto-9d68a.firebaseio.com/anuncios.json/${id}`, anuncio);
   }

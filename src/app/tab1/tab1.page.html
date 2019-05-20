@@ -4,12 +4,22 @@
       findme
     </ion-title>
     <ion-buttons slot="primary">
-      <ion-icon padding color="dark" name="contact" routerLink="/perfil" class="icono-usuario"></ion-icon>
+      <ion-icon padding color="secondary" name="contact" routerLink="/perfil" class="icono-usuario"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+    <ion-grid *ngIf="siHayEncontrados" padding class="ion-margin-top" >
+        <ion-row>
+          <ion-col><h2 text-center>¡¡Alguien vio a tu perro!!</h2></ion-col>
+        </ion-row>
+        <ion-row text-center>
+            <ion-col class="boton-publicar"><ion-button fill="outline" color="primary" (click)="getEstadoMisAnuncios()">Ver mensaje</ion-button></ion-col>
+        </ion-row>
+      </ion-grid>
+
   <ion-grid padding class="ion-margin-top ion-justify-content-between">
     <ion-row>
       <ion-col size="8"><h2>Perdi a mi perro 😭</h2></ion-col>
@@ -50,7 +60,7 @@
           </ion-card-header>
           <img class="imagen" [src]="perro.image">
           <ion-card-content text-end>
-            <ion-button (click)="goFormularioEncontrado(perro)" color="danger">Lo encontre!<ion-icon name="pin"></ion-icon></ion-button>
+            <ion-button (click)="goFormularioEncontrado(perro)" color="danger">¡Lo encontre!<ion-icon name="pin"></ion-icon></ion-button>
             <ion-button (click)="openDetalle(perro)" color="primary">detalles</ion-button>
             <ion-button (click)="compartir()"><ion-icon name="share"></ion-icon></ion-button>
           </ion-card-content>
