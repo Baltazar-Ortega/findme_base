@@ -45,4 +45,18 @@ export class FelicidadesEncontradoComponent implements OnInit {
     });
   }
 
+  private formatoFecha(rawFecha: any) {
+    let fecha = new Date(rawFecha);
+    let month = String(fecha.getMonth() + 1);
+    let day = String(fecha.getDate());
+    const year = String(fecha.getFullYear());
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+    return `${day}-${month}-${year}`;
+  }
+
 }

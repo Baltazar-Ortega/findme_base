@@ -14,6 +14,7 @@ export class FelicidadesResguardadoComponent implements OnInit {
   perro: any;
   rescatador: any;
 
+// tslint:disable-next-line: max-line-length
   constructor(private params: NavParams, private modal: ModalController, private perdidosService: PerrosPerdidosService, private authService: AuthService) { }
 
   ngOnInit() {
@@ -31,6 +32,7 @@ export class FelicidadesResguardadoComponent implements OnInit {
     const rescatadorId = this.mensaje.rescatadorId;
     let rescatador = null;
     const perroId = this.mensaje.perroId;
+    console.log('perroId', perroId);
     const perro = this.perdidosService.obtenerPerro(perroId);
     console.log('perro del modal', perro);
     this.perro = perro;
@@ -43,6 +45,20 @@ export class FelicidadesResguardadoComponent implements OnInit {
         }
       });
     });
+  }
+
+  private formatoFecha(rawFecha: any) {
+    let fecha = new Date(rawFecha);
+    let month = String(fecha.getMonth() + 1);
+    let day = String(fecha.getDate());
+    const year = String(fecha.getFullYear());
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+    return `${day}-${month}-${year}`;
   }
 
 }

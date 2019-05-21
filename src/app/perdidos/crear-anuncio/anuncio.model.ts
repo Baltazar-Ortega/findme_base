@@ -1,4 +1,5 @@
 import { PlaceLocation } from './../componentes/location.model';
+import { Likes } from '../componentes/likes.model';
 export class Anuncio {
     constructor(
         public nombrePerro: string,
@@ -8,6 +9,7 @@ export class Anuncio {
         public perdido: boolean = true,
         public duenoId: string,
         public location: PlaceLocation,
+        public likes: Likes,
         public image: any
     ) {}
 }

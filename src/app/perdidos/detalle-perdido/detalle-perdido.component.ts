@@ -51,7 +51,7 @@ export class DetallePerdidoComponent implements OnInit {
     if (day.length < 2) {
       day = '0' + day;
     }
-    return `${day}/${month}/${year}`;
+    return `${day}-${month}-${year}`;
   }
 
 }

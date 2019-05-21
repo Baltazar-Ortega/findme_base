@@ -56,6 +56,7 @@ export class PerrosEncontradosService {
             fechaPerdido: new Date(resData[key].fechaPerdido),
             perdido: resData[key].perdido,
             image: resData[key].image,
+            likes: resData[key].likes,
             location: resData[key].location
           });
         }

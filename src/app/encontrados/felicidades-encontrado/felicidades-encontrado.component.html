@@ -32,7 +32,7 @@
           </ion-card-header>
           <ion-card-content>
             <h4>{{mensaje.mensaje}}</h4>
-            <ion-text>Fecha en que lo vi {{mensaje.fechaEncontrado}}</ion-text>
+            <ion-text>Fecha en que lo vi {{ formatoFecha(mensaje.fechaEncontrado) }}</ion-text>
           </ion-card-content>
         </ion-card>
       </ion-col>

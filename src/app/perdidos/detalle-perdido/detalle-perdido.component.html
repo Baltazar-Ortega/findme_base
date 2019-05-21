@@ -9,8 +9,9 @@
       <ion-item class="ion-margin-top">
         <ion-card>
           <ion-card-header>
-            <ion-card-title>Mi nombre es: {{perro.nombrePerro}}</ion-card-title>
-            <ion-card-subtitle>{{perro.raza}}  {{perro.descripcion}}</ion-card-subtitle>
+            <ion-card-title>Nombre: {{perro.nombrePerro}}</ion-card-title>
+            <ion-card-subtitle>Raza: {{perro.raza}}</ion-card-subtitle>
+            <ion-card-subtitle>{{perro.descripcion}}</ion-card-subtitle>
           </ion-card-header>
           <img class="imagen " [src]="perro.image">
           <h4 padding>Me perdi el: {{ formatoFecha(perro.fechaPerdido) }}</h4>

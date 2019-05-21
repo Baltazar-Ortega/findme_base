@@ -11,6 +11,7 @@ import { Component, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
 import { ActivationEnd, Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { LoEncontreService } from '../servicios/lo-encontre.service';
 import { MensajesResguardadosService } from '../servicios/mensajes-resguardados.service';
+import { Likes } from '../perdidos/componentes/likes.model';
 
 @Component({
   selector: 'app-tab1',
@@ -26,13 +27,14 @@ export class Tab1Page implements OnInit {
   mensajesResguardados: any;
   siHayEncontrados = false;
   siHayResguardados = false;
+  actualUser: any;
 
-  constructor(private perrosPerdidosServicio: PerrosPerdidosService, public authService: AuthService, public modal: ModalController,
+  constructor(private perrosPerdidosServicio: PerrosPerdidosService, private authService: AuthService, public modal: ModalController,
               private router: Router,
               private route: ActivatedRoute,
               private loEncontre: LoEncontreService,
               private msgEncontradosService: MensajesEncontradosService,
-              private msgResguardadosService: MensajesResguardadosService ) {
+              private msgResguardadosService: MensajesResguardadosService) {
                 this.route.params.subscribe((data) => {
                   console.log('CONSTRUCTOR');
                   this.obtenerAnuncios(false);
@@ -126,6 +128,9 @@ export class Tab1Page implements OnInit {
       // segun el filtro
       this.listaPerros = this.perrosPerdidosServicio.todosPerrosPerdidos;
       console.log('MI LISTA DE PERROS', this.listaPerros);
+      this.authService.getActualUser().then(actualUser => {
+        this.actualUser = actualUser;
+      });
     }, error => {
       console.log(error);
     }, () => {
@@ -143,18 +148,7 @@ export class Tab1Page implements OnInit {
     console.log(perro);
   }
 
-  private formatoFecha(fecha: Date) {
-    let month = String(fecha.getMonth() + 1);
-    let day = String(fecha.getDate());
-    const year = String(fecha.getFullYear());
-    if (month.length < 2) {
-      month = '0' + month;
-    }
-    if (day.length < 2) {
-      day = '0' + day;
-    }
-    return `${day}/${month}/${year}`;
-  }
+  
 
   onFiltrar() {
     if(this.filtro === false) {
@@ -173,8 +167,32 @@ export class Tab1Page implements OnInit {
     }).then((modal) => modal.present());
   }
 
-  updateLikes(anuncion: any, id: any){
-    this.perrosPerdidosServicio.updateLikes(anuncion, id);
+  updateLikes(event, anuncio: any, id: any, users: any){
+    if (this.alreadyLiked(users)) {
+      console.log('Ya le dió like');
+      return;
+    }
+    event.srcElement.classList.add('icono-corazon-rojo');
+    console.log('Update likes');
+    this.authService.getActualUser().then(actualUser => {
+      let idActualUser = (actualUser as any).key;
+      let arrayUsers = anuncio.likes.users;
+      arrayUsers.push(idActualUser);
+      let newNumber = anuncio.likes.number + 1;
+      event.srcElement.innerText = `${newNumber} ❤️`;
+      let likes: Likes = {
+        number: newNumber,
+        users: arrayUsers
+      };
+      console.log('Nuevo objeto likes', likes);
+      this.perrosPerdidosServicio.updateLikes(id, likes).subscribe(res => {
+        console.log('cambios likes', res);
+      })
+    });
+  }
+
+  alreadyLiked(users: any): boolean {
+    return users.includes(this.actualUser.key);
   }
 
   compartir() {
@@ -189,6 +207,19 @@ export class Tab1Page implements OnInit {
         perro
       }
     }).then((modal) => modal.present());
+  }
+
+  private formatoFecha(fecha: Date) {
+    let month = String(fecha.getMonth() + 1);
+    let day = String(fecha.getDate());
+    const year = String(fecha.getFullYear());
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+    return `${day}-${month}-${year}`;
   }
 
   /*

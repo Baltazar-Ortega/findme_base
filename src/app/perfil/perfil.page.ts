@@ -146,5 +146,7 @@ export class PerfilPage implements OnInit {
     this.authService.logout();
   }
 
+  
+
 
 }

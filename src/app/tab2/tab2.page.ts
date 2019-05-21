@@ -62,7 +62,7 @@ export class Tab2Page {
     if (day.length < 2) {
       day = '0' + day;
     }
-    return `${day}/${month}/${year}`;
+    return `${day}-${month}-${year}`;
   }
 
   onFiltrar() {

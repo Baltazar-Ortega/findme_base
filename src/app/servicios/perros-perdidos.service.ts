@@ -67,10 +67,12 @@ export class PerrosPerdidosService implements AfterViewInit {
             duenoId: resData[key].duenoId,
             perdido: resData[key].perdido,
             image: resData[key].image,
-            location: resData[key].location
+            location: resData[key].location,
+            likes: resData[key].likes
           });
         }
       }
+      console.log('Perros todos', perros);
       // Solo perros encontrados
       const perrosPerdidos = perros.filter(perro => perro.perdido === true);
       console.log('Perros Perdidos, filter', perrosPerdidos);
@@ -125,6 +127,8 @@ export class PerrosPerdidosService implements AfterViewInit {
 
   obtenerPerro(key: string) {
     let perro = null;
+    console.log('todosPerrosPerdidos Obtener Perro', this.todosPerrosPerdidos);
+    console.log('key perro a obtener', key);
     this.todosPerrosPerdidos.forEach(el => {
       if (key === el.key) {
         perro = el;
@@ -140,14 +144,14 @@ export class PerrosPerdidosService implements AfterViewInit {
     return this.http.delete(`https://findme-proyecto-9d68a.firebaseio.com/anuncios/${key}.json`);
   }
 
-  updateLikes(id: any, anuncio: any){
-    return this.http.put(`https://findme-proyecto-9d68a.firebaseio.com/anuncios/${id}`, anuncio);
-  }
-
   updateEstadoAnuncio(id: any, anuncio: Anuncio) {
     anuncio.perdido = false;
     console.log('anuncio', anuncio);
     return this.http.put(`https://findme-proyecto-9d68a.firebaseio.com/anuncios/${id}.json`, anuncio);
+  }
+
+  updateLikes(id: string, likesObj: any){
+    return this.http.put(`https://findme-proyecto-9d68a.firebaseio.com/anuncios/${id}/likes.json`, likesObj);
   }
 
   uploadImage(image: string | File) {

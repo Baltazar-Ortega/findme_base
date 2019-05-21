@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
 import { Anuncio } from './anuncio.model';
 import { switchMap } from 'rxjs/operators';
+import { Likes } from '../componentes/likes.model';
 
 
 function base64toBlob(base64Data, contentType) {
@@ -103,6 +104,13 @@ export class CrearAnuncioPage implements OnInit {
         this.servicioPerdidos.uploadImage(this.form.get('image').value).pipe(switchMap(uploadRes => {
           console.log('Agregando anuncio...');
           console.log(uploadRes);
+          const usersArray: Array<any> = [];
+          usersArray.push(this.usuarioActual.key);
+          const likesObj: Likes = {
+            number: 1,
+            users: usersArray
+          };
+          console.log('likesObj', likesObj);
           const anuncioASubir: Anuncio = new Anuncio(
                 this.form.controls.nombrePerro.value,
                 this.form.controls.raza.value,
@@ -111,6 +119,7 @@ export class CrearAnuncioPage implements OnInit {
                 true,
                 this.usuarioActual.key,
                 this.form.get('location').value,
+                likesObj,
                 (uploadRes as any).imageUrl
              );
           console.log('anuncio', anuncioASubir);
@@ -123,6 +132,13 @@ export class CrearAnuncioPage implements OnInit {
       } else {
         this.servicioPerdidos.uploadImage(this.form.get('image').value);
         console.log('Agregando anuncio...');
+        const usersArray: Array<any> = [];
+        usersArray.push(this.usuarioActual.key);
+        const likesObj: Likes = {
+          number: 1,
+          users: usersArray
+        };
+        console.log('likesObj', likesObj);
         const anuncio: Anuncio = new Anuncio(
               this.form.controls.nombrePerro.value,
               this.form.controls.raza.value,
@@ -131,6 +147,7 @@ export class CrearAnuncioPage implements OnInit {
                true,
                this.usuarioActual.key,
               this.form.get('location').value,
+              likesObj,
               this.form.get('image').value
           );
         console.log('anuncio', anuncio);

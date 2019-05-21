@@ -72,13 +72,18 @@
         <ion-card>
           <ion-card-header>
             <ion-card-title>{{perro.nombrePerro}}</ion-card-title>
-            <ion-card-subtitle>{{perro.raza}}</ion-card-subtitle>
+            <ion-card-subtitle>Raza: {{perro.raza}}</ion-card-subtitle>
           </ion-card-header>
           <img class="imagen" [src]="perro.image">
           <ion-card-content text-end>
             <ion-button (click)="onLoEncontre(perro)" color="danger">¡Lo encontre!<ion-icon name="pin"></ion-icon></ion-button>
             <ion-button (click)="openDetalle(perro)" color="primary">detalles</ion-button>
-            <ion-button (click)="compartir()"><ion-icon name="share"></ion-icon></ion-button>
+            <ion-button (click)="updateLikes($event, perro, perro.key, perro.likes.users)">
+              {{perro.likes.number}}
+              <ion-icon *ngIf="alreadyLiked(perro.likes.users)" color="danger" name="heart"></ion-icon>
+              <ion-icon *ngIf="!alreadyLiked(perro.likes.users)" color="dark" name="heart"></ion-icon>
+            </ion-button>
+            <ion-button (click)="compartir()"><ion-icon name="share" color="dark"></ion-icon></ion-button>
           </ion-card-content>
           <ion-card-content>
             {{perro.descripcion}}
