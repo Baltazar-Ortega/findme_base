@@ -1,11 +1,17 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title text-center><ion-text color="dark">Iniciar Sesion</ion-text></ion-title>
+    <ion-title text-center>
+      <ion-grid>
+        <ion-row>
+          <ion-col class="col-title"><h3 color="dark">Iniciar Sesion</h3><img class="logo" src="assets/imagenes/logo.jpg"></ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <img class="icon" src="assets/icon/chat_icon.svg" alt="">
+    <img class="icon" src="assets/imagenes/perroMirandoFrente.jpg" alt="">
   <ion-item>
     <ion-label position="floating">Email</ion-label>
     <ion-input type="text" name="email" [(ngModel)]="email"></ion-input>

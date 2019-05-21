@@ -7,7 +7,7 @@ import { AuthService } from './../servicios/auth.service';
 import { ModalController } from '@ionic/angular';
 import { strict } from 'assert';
 import { PerrosPerdidosService } from '../servicios/perros-perdidos.service';
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
 import { ActivationEnd, Router } from '@angular/router';
 import { LoEncontreService } from '../servicios/lo-encontre.service';
 import { MensajesResguardadosService } from '../servicios/mensajes-resguardados.service';
@@ -17,7 +17,7 @@ import { MensajesResguardadosService } from '../servicios/mensajes-resguardados.
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements AfterViewInit {
+export class Tab1Page implements OnDestroy, OnInit {
   selectKm: any = 'all';
   filtro = false;
   listaPerros: any;
@@ -34,11 +34,16 @@ export class Tab1Page implements AfterViewInit {
               private msgResguardadosService: MensajesResguardadosService ) {}
 
 // tslint:disable-next-line: use-life-cycle-interface
+  
+
   ngOnInit() {
+    this.siHayEncontrados = false;
+    this.siHayResguardados = false;
     this.obtenerAnuncios();
   }
 
-  ngAfterViewInit() {
+  ngOnDestroy() {
+
   }
 
   getEstadoMisAnuncios() {

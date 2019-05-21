@@ -1,15 +1,25 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title text-center><ion-text color="dark">Registro</ion-text></ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar color="primary">
+      <ion-title text-center>
+        <ion-grid no-padding>
+          <ion-row>
+            <ion-col no-padding class="col-title"><h3 color="dark">Registro</h3><img class="logo" src="assets/imagenes/logo.jpg"></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
 
 <ion-content>
-    <img class="icon" src="assets/icon/register.svg" alt="">
-    <ion-item>
-        <ion-label position="floating">Nombre de usuario</ion-label>
-        <ion-input type="text" name="nombreUsuario" [(ngModel)]="nombreUsuario"></ion-input>
-      </ion-item>
+  <img class="icon" src="assets/imagenes/perroCorriendo.jpg" alt="">
+  <ion-item>
+    <ion-label position="floating">Nombre de usuario</ion-label>
+    <ion-input type="text" name="nombreUsuario" [(ngModel)]="nombreUsuario"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Telefono</ion-label>
+    <ion-input type="text" name="telefono" [(ngModel)]="telefono"></ion-input>
+  </ion-item>
   <ion-item>
     <ion-label position="floating">Email</ion-label>
     <ion-input type="email" name="email" [(ngModel)]="email"></ion-input>

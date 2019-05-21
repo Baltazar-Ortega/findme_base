@@ -25,7 +25,7 @@
      <ion-grid>
        <ion-row class="row-subir-anuncio">
          <ion-col size="8" ><h1 text-center >Subir anuncio</h1></ion-col>
-         <ion-col size="3"><ion-icon name="add-circle" color="danger" routerLink="/crear-anuncio"></ion-icon></ion-col>
+         <ion-col size="3"><ion-icon name="add-circle" color="secondary" routerLink="/crear-anuncio"></ion-icon></ion-col>
        </ion-row>
      </ion-grid>
 
@@ -38,11 +38,12 @@
                 <ion-card-title>{{anuncio.nombrePerro}}</ion-card-title>
                 <ion-card-subtitle>{{anuncio.raza}}</ion-card-subtitle>
               </ion-card-header>
-              <img [src]="anuncio.image" alt="">
-              <ion-card-content>
-                  {{anuncio.descripcion}}
-                </ion-card-content>
-                <h5 padding>Se perdió el: {{ formatoFecha(anuncio.fechaPerdido) }}</h5> 
+              <img [src]="anuncio.image" class="imagen">
+              <ion-card-content padding>
+                  <h4>{{anuncio.descripcion}}</h4>
+                  <h5 class="ion-margin-bottom ion-margin-top">Se perdió el: {{ formatoFecha(anuncio.fechaPerdido) }}</h5> 
+                  <ion-button color="danger" fill="outline">Eliminar</ion-button>
+              </ion-card-content>
             </ion-card>
           </ion-item>
      </ion-list>

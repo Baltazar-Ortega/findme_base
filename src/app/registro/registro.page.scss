@@ -16,5 +16,18 @@ h4 {
     margin-right: auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 50%
+    width: 50%;
+    border-radius: 70px;
+}
+
+.logo {
+    margin-left: 10px;
+    width: 35px;
+    border-radius: 100%;
+}
+
+.col-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

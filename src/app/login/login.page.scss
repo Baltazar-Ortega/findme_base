@@ -10,11 +10,28 @@ h4 {
     margin-bottom: 0px;
 }
 
+h3{
+    display: inherit;
+}
+
 .icon {
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 50%
+    width: 50%;
+    border-radius: 70px;
+}
+
+.logo {
+    margin-left: 10px;
+    width: 35px;
+    border-radius: 100%;
+}
+
+.col-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

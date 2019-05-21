@@ -31,7 +31,7 @@ export class AuthService implements OnInit {
     });
   }
 
-  register(email: string, password: string, nombreUsuario: string) {
+  register(email: string, password: string, nombreUsuario: string, telefono: string) {
     return new Promise ((resolve, reject) => {
       this.AFauth.auth.createUserWithEmailAndPassword(email, password).then(res => {
         console.log('uid del usuario', res.user.uid); // Podemos guardar este valor
@@ -40,7 +40,7 @@ export class AuthService implements OnInit {
           uid: id,
           nombreUsuario,
           email,
-          password
+          telefono
         };
         this.http.post('https://findme-proyecto-9d68a.firebaseio.com/usuarios.json', usuario).subscribe(_ => {
           resolve(res);
@@ -74,8 +74,8 @@ export class AuthService implements OnInit {
               key,
               email: resData[key].email,
               nombreUsuario: resData[key].nombreUsuario,
-              uid: resData[key].uid,
-              password: resData[key].password
+              telefono: resData[key].telefono,
+              uid: resData[key].uid
             });
           }
       }

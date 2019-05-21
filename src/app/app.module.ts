@@ -27,8 +27,11 @@ import { EscogerTipoEncontradoComponent } from './encontrados/escoger-tipo-encon
 
 
 @NgModule({
-  declarations: [AppComponent, DetallePerdidoComponent, DetalleEncontradoComponent, FelicidadesEncontradoComponent, EscogerTipoEncontradoComponent, FelicidadesResguardadoComponent],
-  entryComponents: [DetallePerdidoComponent, DetalleEncontradoComponent, FelicidadesEncontradoComponent, EscogerTipoEncontradoComponent, FelicidadesResguardadoComponent],
+  declarations: [AppComponent, DetallePerdidoComponent, DetalleEncontradoComponent, FelicidadesEncontradoComponent, 
+    EscogerTipoEncontradoComponent, 
+    FelicidadesResguardadoComponent],
+  entryComponents: [DetallePerdidoComponent, 
+    DetalleEncontradoComponent, FelicidadesEncontradoComponent, EscogerTipoEncontradoComponent, FelicidadesResguardadoComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
   AngularFireModule.initializeApp(FIREBASE_CONFIG),
   AngularFireAuthModule, AngularFirestoreModule, FormsModule],

@@ -1,8 +1,15 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>
-      findme
-    </ion-title>
+      <ion-title text-center>
+          <ion-grid no-padding>
+            <ion-row>
+              <ion-col text-start no-padding>
+                <img class="findme-letras" src="assets/imagenes/findme.jpg">
+                <img class="logo" src="assets/imagenes/logo.jpg">
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-title>
     <ion-buttons slot="primary">
       <ion-icon padding color="secondary" name="contact" routerLink="/perfil" class="icono-usuario"></ion-icon>
     </ion-buttons>
@@ -11,7 +18,7 @@
 
 <ion-content>
 
-    <ion-grid *ngIf="siHayEncontrados" padding class="ion-margin-top" >
+    <ion-grid *ngIf="siHayEncontrados" padding class="ion-margin-top siHayEncontradosResguardados" >
         <ion-row>
           <ion-col><h2 text-center>¡¡Alguien vio a tu perro!!</h2></ion-col>
         </ion-row>
@@ -20,7 +27,7 @@
         </ion-row>
       </ion-grid>
 
-      <ion-grid *ngIf="siHayResguardados" padding class="ion-margin-top" >
+      <ion-grid *ngIf="siHayResguardados" padding class="ion-margin-top siHayEncontradosResguardados" >
           <ion-row>
             <ion-col><h2 text-center>¡¡Alguien tiene a tu perro!!</h2></ion-col>
           </ion-row>
@@ -29,7 +36,7 @@
           </ion-row>
         </ion-grid>
 
-  <ion-grid padding class="ion-margin-top ion-justify-content-between">
+  <ion-grid padding class="ion-justify-content-between">
     <ion-row>
       <ion-col size="8"><h2>Perdi a mi perro 😭</h2></ion-col>
       <ion-col size="4" class="boton-publicar"><ion-button color="danger" routerLink="/crear-anuncio">Publicar <br> anuncio</ion-button></ion-col>
