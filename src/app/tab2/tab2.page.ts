@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { DetalleEncontradoComponent } from './../encontrados/detalle-encontrado/detalle-encontrado.component';
 import { ModalController } from '@ionic/angular';
 import { Component } from '@angular/core';
@@ -15,11 +16,16 @@ export class Tab2Page {
   listaPerros: any;
   listaLista = false;
   constructor(private perrosEncontradosServicio: PerrosEncontradosService,
-              public modal: ModalController) {}
+              public modal: ModalController, private route: ActivatedRoute) {
+                this.route.params.subscribe((data) => {
+                  console.log('CONSTRUCTOR');
+                  this.obtenerAnuncios();
+                });
+              }
 
 // tslint:disable-next-line: use-life-cycle-interface
   ngOnInit() {
-    this.obtenerAnuncios();
+    console.log('ngOnInit');
   }
 
   obtenerAnuncios() {

@@ -8,7 +8,7 @@ import { ModalController } from '@ionic/angular';
 import { strict } from 'assert';
 import { PerrosPerdidosService } from '../servicios/perros-perdidos.service';
 import { Component, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
-import { ActivationEnd, Router } from '@angular/router';
+import { ActivationEnd, Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { LoEncontreService } from '../servicios/lo-encontre.service';
 import { MensajesResguardadosService } from '../servicios/mensajes-resguardados.service';
 
@@ -17,7 +17,7 @@ import { MensajesResguardadosService } from '../servicios/mensajes-resguardados.
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnDestroy, OnInit {
+export class Tab1Page implements OnInit {
   selectKm: any = 'all';
   filtro = false;
   listaPerros: any;
@@ -29,9 +29,15 @@ export class Tab1Page implements OnDestroy, OnInit {
 
   constructor(private perrosPerdidosServicio: PerrosPerdidosService, public authService: AuthService, public modal: ModalController,
               private router: Router,
+              private route: ActivatedRoute,
               private loEncontre: LoEncontreService,
               private msgEncontradosService: MensajesEncontradosService,
-              private msgResguardadosService: MensajesResguardadosService ) {}
+              private msgResguardadosService: MensajesResguardadosService ) {
+                this.route.params.subscribe((data) => {
+                  console.log('CONSTRUCTOR');
+                  this.obtenerAnuncios(false);
+                });
+              }
 
 // tslint:disable-next-line: use-life-cycle-interface
   
@@ -39,11 +45,13 @@ export class Tab1Page implements OnDestroy, OnInit {
   ngOnInit() {
     this.siHayEncontrados = false;
     this.siHayResguardados = false;
-    this.obtenerAnuncios();
+    console.log('ngOnInit');
+    this.obtenerAnuncios(true);
   }
 
-  ngOnDestroy() {
-
+  ionViewWillEnter() {
+    console.log('ion view will enter');
+    // this.obtenerAnuncios();
   }
 
   getEstadoMisAnuncios() {
@@ -110,7 +118,7 @@ export class Tab1Page implements OnDestroy, OnInit {
     }); // Fin de suscripcion de mensajes-encontrados
   }
 
-  obtenerAnuncios() {
+  obtenerAnuncios(mostrarModal: boolean) {
     const filtroValue = this.selectKm;
     this.perrosPerdidosServicio.obtenerAnuncios(filtroValue).subscribe(datos => {
       console.log('Datos traidos del servicio', datos);
@@ -123,8 +131,10 @@ export class Tab1Page implements OnDestroy, OnInit {
     }, () => {
       console.log('completado');
       this.listaLista = true;
-      this.getEstadoMisAnuncios();
-      this.getEstadoMisAnunciosResguardados();
+      if (mostrarModal) {
+        this.getEstadoMisAnuncios();
+        this.getEstadoMisAnunciosResguardados();
+      }
     });
   }
 

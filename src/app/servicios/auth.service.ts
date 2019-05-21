@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { map } from 'rxjs/operators';
 import { Injectable, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -97,7 +98,7 @@ export class AuthService implements OnInit {
               usuarioActual = usuario;
               console.log('Usuario actual', usuarioActual);
               resolve(usuarioActual);
-            } 
+            }
           });
           if(!usuarioActual) {
             rejected(usuarioActual);

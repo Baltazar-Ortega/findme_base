@@ -41,8 +41,9 @@
               <img [src]="anuncio.image" class="imagen">
               <ion-card-content padding>
                   <h4>{{anuncio.descripcion}}</h4>
-                  <h5 class="ion-margin-bottom ion-margin-top">Se perdió el: {{ formatoFecha(anuncio.fechaPerdido) }}</h5> 
-                  <ion-button color="danger" fill="outline">Eliminar</ion-button>
+                  <h5 class="ion-margin-bottom ion-margin-top">Se perdió el: {{ formatoFecha(anuncio.fechaPerdido) }}</h5>
+                  <ion-button color="danger" fill="outline" (click)="eliminarAnuncioAlert(anuncio.key)">Eliminar</ion-button>
+                  <ion-button color="secondary" fill="outline" (click)="updateEstadoAnuncioAlert(anuncio.key, anuncio)">Ya lo tengo</ion-button>
               </ion-card-content>
             </ion-card>
           </ion-item>

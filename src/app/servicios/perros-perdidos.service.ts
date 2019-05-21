@@ -133,8 +133,21 @@ export class PerrosPerdidosService implements AfterViewInit {
     return perro;
   }
 
+  borrarAnuncio(key: string) {
+    console.log('key del perro a borrar', key);
+    const string = `https://findme-proyecto-9d68a.firebaseio.com/anuncios/${key}.json`;
+    console.log('string del delete, completo', string)
+    return this.http.delete(`https://findme-proyecto-9d68a.firebaseio.com/anuncios/${key}.json`);
+  }
+
   updateLikes(id: any, anuncio: any){
-    return this.http.put(`https://findme-proyecto-9d68a.firebaseio.com/anuncios.json/${id}`, anuncio);
+    return this.http.put(`https://findme-proyecto-9d68a.firebaseio.com/anuncios/${id}`, anuncio);
+  }
+
+  updateEstadoAnuncio(id: any, anuncio: Anuncio) {
+    anuncio.perdido = false;
+    console.log('anuncio', anuncio);
+    return this.http.put(`https://findme-proyecto-9d68a.firebaseio.com/anuncios/${id}.json`, anuncio);
   }
 
   uploadImage(image: string | File) {

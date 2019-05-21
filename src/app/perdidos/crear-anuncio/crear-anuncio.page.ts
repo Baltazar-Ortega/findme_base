@@ -1,8 +1,9 @@
+import { AuthService } from './../../servicios/auth.service';
 import { PerrosPerdidosService } from './../../servicios/perros-perdidos.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { Anuncio } from './anuncio.model';
 import { switchMap } from 'rxjs/operators';
 
@@ -37,10 +38,13 @@ export class CrearAnuncioPage implements OnInit {
 
   form: FormGroup;
   checkValidado = false;
+  usuarioActual: any = null;
 
   constructor(private router: Router,
               private loadingCtrl: LoadingController,
-              private servicioPerdidos: PerrosPerdidosService) { }
+              private servicioPerdidos: PerrosPerdidosService,
+              private authService: AuthService,
+              private navCtrl: NavController) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -62,6 +66,13 @@ export class CrearAnuncioPage implements OnInit {
       }),
       location: new FormControl(null, {validators: [Validators.required]}),
       image: new FormControl(null)
+    });
+    this.obtenerUsuarioActual();
+  }
+
+  obtenerUsuarioActual() {
+    this.authService.getActualUser().then(userActual => {
+      this.usuarioActual = userActual;
     });
   }
 
@@ -97,6 +108,8 @@ export class CrearAnuncioPage implements OnInit {
                 this.form.controls.raza.value,
                 this.form.controls.descripcion.value,
                 this.form.controls.fechaPerdido.value,
+                true,
+                this.usuarioActual.key,
                 this.form.get('location').value,
                 (uploadRes as any).imageUrl
              );
@@ -115,6 +128,8 @@ export class CrearAnuncioPage implements OnInit {
               this.form.controls.raza.value,
               this.form.controls.descripcion.value,
                this.form.controls.fechaPerdido.value,
+               true,
+               this.usuarioActual.key,
               this.form.get('location').value,
               this.form.get('image').value
           );
@@ -122,7 +137,8 @@ export class CrearAnuncioPage implements OnInit {
         this.servicioPerdidos.agregarAnuncio(anuncio).subscribe(() => {
             loadingEl.dismiss();
             this.form.reset();
-            this.router.navigateByUrl('/dashboard-perdido');
+            this.navCtrl.navigateBack('/dashboard-perdido');
+            // this.router.navigateByUrl('/dashboard-perdido');
         });
       }
     });

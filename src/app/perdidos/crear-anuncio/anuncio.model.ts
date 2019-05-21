@@ -5,6 +5,8 @@ export class Anuncio {
         public raza: string,
         public descripcion: string,
         public fechaPerdido: Date,
+        public perdido: boolean = true,
+        public duenoId: string,
         public location: PlaceLocation,
         public image: any
     ) {}

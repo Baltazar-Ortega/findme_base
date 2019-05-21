@@ -9,8 +9,8 @@
         <ion-item class="ion-margin-top">
           <ion-card>
             <ion-card-header>
-              <ion-card-title>Mi nombre es: {{perro.nombrePerro}}</ion-card-title>
-              <ion-card-subtitle>y me dijeron que soy: {{perro.raza}}</ion-card-subtitle>
+              <ion-card-title>{{perro.nombrePerro}}</ion-card-title>
+              <ion-card-subtitle>{{perro.raza}}</ion-card-subtitle>
             </ion-card-header>
             <img class="imagen" [src]="perro.image">
             <h4 padding>Me encontraron hace poco</h4>
@@ -18,7 +18,7 @@
                 <h3>GRACIAS POR TU APOYO</h3>
                 <p padding>Juntos podemos ayudar a que mas perros regresen con sus dueños</p>
                 <img src="assets/imagenes/imback.gif" alt="" class="imagen-gif ion-margin-bottom">
-                <ion-button routerLink="/">Ver perros perdidos</ion-button>
+                <ion-button (click)="verPerrosPerdidos()">Ver perros perdidos</ion-button>
             </div>
           </ion-card>
         </ion-item>
