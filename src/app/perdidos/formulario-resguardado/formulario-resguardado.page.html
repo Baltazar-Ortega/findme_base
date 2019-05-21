@@ -1,0 +1,64 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/dashboard-encontrado" color="light"></ion-back-button>
+      </ion-buttons>
+      <ion-title color="light">Tengo a {{perro.nombrePerro}}</ion-title>
+      <ion-buttons slot="primary">
+        <ion-button (click)="onCrearAnuncioResguardado()" [disabled]="!form.valid">
+          <ion-icon *ngIf="form.valid" name="checkmark" slot="icon-only" color="light"></ion-icon>
+          <ion-icon *ngIf="!form.valid" name="checkmark" slot="icon-only" color="dark"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    
+    <form [formGroup]="form">
+      <ion-grid>
+        <ion-row>
+          <ion-col size-sm="3" offset-sm="3">
+            <ion-item class="ion-margin-top">
+              <ion-label position="floating">Desde cuando lo tienes</ion-label>
+              <ion-datetime min="2018-01-01" max="2025-12-31" formControlName="fechaEncontrado"></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-sm="6" offset-sm="3">
+            <ion-item class="ion-margin-top">
+              <ion-label position="floating">Mensaje</ion-label>
+              <ion-textarea rows="3" formControlName="mensaje"></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="
+              !form.get('mensaje').valid && form.get('mensaje').touched
+            ">
+          <ion-col size-sm="6" offset-sm="3">
+            <p>El mensaje debe tener entre 1 y 180 caracteres</p>
+          </ion-col>
+        </ion-row>
+  
+        <h4 class="ion-margin-top ion-text-center">Foto</h4>
+        <ion-row>
+          <ion-col size-sm="6" offset-sm="3">
+            <app-image-picker 
+                [tipoAccesoFotos]="true"
+               [showPreview]="form.get('image').value"
+               (imagePick)="onImagePicked($event)"
+            ></app-image-picker>
+          </ion-col>
+        </ion-row>
+  
+      </ion-grid>
+    </form>
+
+    
+  </ion-content>
+
+  <ion-footer padding class="ion-margin-top" text-center>
+      El dueño podrá ver tus datos de contacto
+  </ion-footer>
+  

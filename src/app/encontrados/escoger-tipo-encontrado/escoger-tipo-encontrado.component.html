@@ -1,0 +1,24 @@
+<ion-header>
+
+    <ion-toolbar color="secondary">
+      <ion-button slot="start" fill="clear" (click)="closeModal()" color="light"><ion-icon name="close"></ion-icon></ion-button>
+    <ion-title color="light">Escoge una opcion</ion-title>
+    </ion-toolbar>
+    </ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <h2 text-center>Lo vi</h2>
+        <img class="gifs-opciones" src="assets/imagenes/recordingDog.gif" alt="" (click)="onLoVi()">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col text-center>
+            <h2 text-center>Lo tengo en mi casa</h2>
+            <img class="gifs-opciones" src="assets/imagenes/encasa.gif" alt="" (click)="onEnMiCasa()">
+          </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

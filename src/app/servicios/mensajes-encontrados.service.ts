@@ -30,6 +30,5 @@ export class MensajesEncontradosService {
       console.log('mensajes-encontrados', this.mensajes);
       return this.mensajes;
     }));
-
   }
 }

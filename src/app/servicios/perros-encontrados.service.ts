@@ -109,13 +109,13 @@ export class PerrosEncontradosService {
     return perro;
   }
 
-  mandarAnuncioEncontrado(data: Encontrado) {
+  mandarAnuncioEncontrado(data: any) {
     console.log(data);
     return this.http.post('https://findme-proyecto-9d68a.firebaseio.com/mensajes-encontrados.json', data);
   }
 
 
-  uploadImage(image: string | File) {
+  uploadImage(image: string | File | null) {
     console.log('En uploadImage');
     if (typeof image === 'string') {
       console.log('Tipo de dato string');
@@ -128,7 +128,7 @@ export class PerrosEncontradosService {
         imageFile
       );
     } else {
-      console.log('Tipo de dato file');
+      console.log('Tipo de dato file o nulo');
       const uploadData = new FormData();
       uploadData.append('image', image);
       /* Retornará un observable, url es una url que podemos agarrar de donde sea, y path es la imagen local desde el backend*/

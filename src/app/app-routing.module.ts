@@ -13,7 +13,10 @@ const routes: Routes = [
 // tslint:disable-next-line: max-line-length
   { path: 'login', loadChildren: './login/login.module#LoginPageModule', canActivate: [NologinGuard] }, // Si estas logueado, ya no puedes entrar ni a login ni registro
   { path: 'registro', loadChildren: './registro/registro.module#RegistroPageModule', canActivate: [NologinGuard] },
-  { path: 'perfil', loadChildren: './perfil/perfil.module#PerfilPageModule' }
+  { path: 'perfil', loadChildren: './perfil/perfil.module#PerfilPageModule' },
+// tslint:disable-next-line: max-line-length
+  { path: 'formulario-resguardado', loadChildren: './perdidos/formulario-resguardado/formulario-resguardado.module#FormularioResguardadoPageModule', canActivate: [AuthGuard] }
+
 
 
 

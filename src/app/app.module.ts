@@ -1,3 +1,5 @@
+import { FelicidadesResguardadoComponent } from './encontrados/felicidades-resguardado/felicidades-resguardado.component';
+
 import { FormsModule } from '@angular/forms';
 // Firebase
 import { FIREBASE_CONFIG } from './firebase.config';
@@ -21,10 +23,12 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { DetallePerdidoComponent } from './perdidos/detalle-perdido/detalle-perdido.component';
 import { DetalleEncontradoComponent } from './encontrados/detalle-encontrado/detalle-encontrado.component';
 import { FelicidadesEncontradoComponent } from './encontrados/felicidades-encontrado/felicidades-encontrado.component';
+import { EscogerTipoEncontradoComponent } from './encontrados/escoger-tipo-encontrado/escoger-tipo-encontrado.component';
+
 
 @NgModule({
-  declarations: [AppComponent, DetallePerdidoComponent, DetalleEncontradoComponent, FelicidadesEncontradoComponent],
-  entryComponents: [DetallePerdidoComponent, DetalleEncontradoComponent, FelicidadesEncontradoComponent],
+  declarations: [AppComponent, DetallePerdidoComponent, DetalleEncontradoComponent, FelicidadesEncontradoComponent, EscogerTipoEncontradoComponent, FelicidadesResguardadoComponent],
+  entryComponents: [DetallePerdidoComponent, DetalleEncontradoComponent, FelicidadesEncontradoComponent, EscogerTipoEncontradoComponent, FelicidadesResguardadoComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
   AngularFireModule.initializeApp(FIREBASE_CONFIG),
   AngularFireAuthModule, AngularFirestoreModule, FormsModule],

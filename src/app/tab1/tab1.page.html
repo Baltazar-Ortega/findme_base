@@ -20,6 +20,15 @@
         </ion-row>
       </ion-grid>
 
+      <ion-grid *ngIf="siHayResguardados" padding class="ion-margin-top" >
+          <ion-row>
+            <ion-col><h2 text-center>¡¡Alguien tiene a tu perro!!</h2></ion-col>
+          </ion-row>
+          <ion-row text-center>
+              <ion-col class="boton-publicar"><ion-button fill="outline" color="primary" (click)="getEstadoMisAnunciosResguardados()">Ver mensaje</ion-button></ion-col>
+          </ion-row>
+        </ion-grid>
+
   <ion-grid padding class="ion-margin-top ion-justify-content-between">
     <ion-row>
       <ion-col size="8"><h2>Perdi a mi perro 😭</h2></ion-col>
@@ -60,7 +69,7 @@
           </ion-card-header>
           <img class="imagen" [src]="perro.image">
           <ion-card-content text-end>
-            <ion-button (click)="goFormularioEncontrado(perro)" color="danger">¡Lo encontre!<ion-icon name="pin"></ion-icon></ion-button>
+            <ion-button (click)="onLoEncontre(perro)" color="danger">¡Lo encontre!<ion-icon name="pin"></ion-icon></ion-button>
             <ion-button (click)="openDetalle(perro)" color="primary">detalles</ion-button>
             <ion-button (click)="compartir()"><ion-icon name="share"></ion-icon></ion-button>
           </ion-card-content>
