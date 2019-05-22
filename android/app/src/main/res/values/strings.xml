@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">base</string>
-    <string name="title_activity_main">base</string>
+    <string name="app_name">findme</string>
+    <string name="title_activity_main">findme</string>
     <string name="package_name">com.lcc.findme</string>
     <string name="fileprovider_authority">com.lcc.findme.fileprovider</string>
     <string name="custom_url_scheme">com.lcc.findme</string>

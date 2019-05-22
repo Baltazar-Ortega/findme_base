@@ -41,7 +41,7 @@ export class DetallePerdidoComponent implements OnInit {
     });
   }
 
-  private formatoFecha(fecha: Date) {
+  formatoFecha(fecha: Date) {
     let month = String(fecha.getMonth() + 1);
     let day = String(fecha.getDate());
     const year = String(fecha.getFullYear());
