@@ -18,6 +18,7 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
   coordenadasPoligono: any;
   map: any;
   listo = false;
+  mapEl: any;
 
   constructor(private modalCtrl: ModalController,
               private renderer: Renderer2) { }
@@ -37,13 +38,15 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
           center: { lat: this.centro.lat, lng: this.centro.lng },
           zoom: 15
         });
+        console.log('mapEl', mapEl);
         this.map = map;
-        console.log('centro latitud', map.center.lat());
+        console.log('centro latitud ', map.center.lat());
         const centroLat = map.center.lat();
         console.log('centro longitud', map.center.lng());
         const centroLng = map.center.lng();
         // Evento de la carga
-        this.googleMaps.event.addListenerOnce(map, 'idle', () => {
+        this.clickListener = this.googleMaps.event.addListenerOnce(map, 'idle', () => {
+          console.log('IDLE');
           this.renderer.addClass(mapEl, 'visible');
         });
 
@@ -91,17 +94,6 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
             lng: points.getAt(i).lng()
           });
         }
-
-        /*
-        let arrayMarcadoresOriginal = [];
-        arrayPuntos.forEach((latLng, idx) => {
-          let marker = new googleMaps.Marker({
-            position: { lat: latLng.lat, lng: latLng.lng }
-          });
-          arrayMarcadoresOriginal.push(marker);
-          marker.setMap(map);
-        });
-        */
         //Pintar mapa
         pentagono.setMap(map);
 
@@ -190,7 +182,7 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
       });
     }).catch(err => {
       console.log(err);
-    })
+    });
   }
 
   onListo() {
@@ -206,15 +198,19 @@ export class MapModalAnuncioComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   onConfirmar() {
+    this.googleMaps.event.removeListener(this.clickListener);
     this.modalCtrl.dismiss(this.coordenadasPoligono);
   }
 
   onCancelar() {
+    this.googleMaps.event.removeListener(this.clickListener);
     this.modalCtrl.dismiss();
   }
 
   ngOnDestroy() {
     this.googleMaps.event.removeListener(this.clickListener);
+    console.log('ONDESTROY');
+    this.mapElementRef = null;
   }
 
   private getGoogleMaps(): Promise<any> {

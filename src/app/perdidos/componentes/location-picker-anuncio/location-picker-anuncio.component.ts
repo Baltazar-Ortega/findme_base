@@ -17,6 +17,7 @@ export class LocationPickerAnuncioComponent implements OnInit {
   isLoading = false;
   centroCoordenadas: Coordinates;
   imagenGenerada: string;
+  googleMaps: any;
 
   constructor(private modalCtrl: ModalController,
               private alertCtrl: AlertController) { }
@@ -29,9 +30,9 @@ export class LocationPickerAnuncioComponent implements OnInit {
   } 
   
   openMap() {
-    Plugins.Geolocation.getCurrentPosition().then(geoPosition => {
+    /*Plugins.Geolocation.getCurrentPosition().then(geoPosition => {
       this.centroCoordenadas = { lat: geoPosition.coords.latitude, lng: geoPosition.coords.longitude };
-    });
+    });*/
     this.modalCtrl.create({ component: MapModalAnuncioComponent }).then(modalEl => {
       modalEl.onDidDismiss().then(modalData => {
         if(!modalData.data){
@@ -39,17 +40,44 @@ export class LocationPickerAnuncioComponent implements OnInit {
           return;
         }
         const arrayLatLng = modalData.data;
-        this.isLoading = true;
-        this.imagenGenerada = this.getMapImage(this.centroCoordenadas, arrayLatLng, 15);
-        console.log('Data enviada desde el modal', modalData);
-        let poligonoInfoCompleta = {
-          array: arrayLatLng,
-          imagen: this.imagenGenerada,
-        };
-        this.isLoading = false;
-        this.locationPick.emit(poligonoInfoCompleta);
+        console.log('modalData', arrayLatLng);
+        this.centroPoligono(arrayLatLng).then(centro => {
+          this.isLoading = true;
+          this.centroCoordenadas = {lat: (centro as any).lat, lng: (centro as any).lng};
+          this.imagenGenerada = this.getMapImage(this.centroCoordenadas, arrayLatLng, 14);
+          console.log('Data enviada desde el modal', modalData);
+          let poligonoInfoCompleta = {
+            array: arrayLatLng,
+            imagen: this.imagenGenerada,
+          };
+          this.isLoading = false;
+          this.locationPick.emit(poligonoInfoCompleta);
+        }); // Fin promesa centro poligono
       }); 
       modalEl.present();
+    });
+  }
+
+  centroPoligono(arrayLatLng: any) {
+    return new Promise((resolve, rejected) => {
+      this.getGoogleMaps().then(googleMaps => {
+        this.googleMaps = googleMaps;
+        let bounds = new this.googleMaps.LatLngBounds();
+        let i;
+  
+        let arrayObjLatLng: Array<any> = [];
+        arrayLatLng.forEach(coord => {
+          arrayObjLatLng.push(new this.googleMaps.LatLng(coord.lat, coord.lng));
+        });
+        console.log('array de objetos LatLng', arrayObjLatLng);
+        for (i = 0; i < arrayObjLatLng.length; i++) {
+          bounds.extend(arrayObjLatLng[i]);
+        }
+        let centroBound = bounds.getCenter();
+        let centro = {lat: centroBound.lat(), lng: centroBound.lng()};
+        console.log('Centro correcto', centro);
+        resolve(centro);
+      });
     });
   }
 
@@ -73,6 +101,31 @@ export class LocationPickerAnuncioComponent implements OnInit {
     stringImagen += stringKey;
     console.log(stringImagen);
     return stringImagen;
+  }
+
+  private getGoogleMaps(): Promise<any> {
+    const win = window as any; // window es el browser window
+    const googleModule = win.google;
+    if (googleModule && googleModule.maps) {
+      // no cargo el sdk otra vez
+      return Promise.resolve(googleModule.maps);
+    }
+    // No ha sido cargado el sdk
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://maps.googleapis.com/maps/api/js?key=' + environment.googleMapsAPIKey + '&libraries=geometry';
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+      script.onload = () => {
+        const loadedGoogleModule = win.google;
+        if (loadedGoogleModule && loadedGoogleModule.maps) {
+          resolve(loadedGoogleModule.maps);
+        } else {
+          reject('Google maps SDK not available');
+        }
+      };
+    })
   }
 
 } 

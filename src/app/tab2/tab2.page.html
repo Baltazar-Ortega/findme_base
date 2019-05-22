@@ -50,7 +50,7 @@
       <ion-item *ngFor="let perro of listaPerros">
         <ion-card>
           <ion-card-header color="danger">
-            <ion-card-title>{{perro.nombrePerro}}</ion-card-title>
+            <ion-card-title>{{perro.nombrePerro}} </ion-card-title>
             <ion-card-subtitle>{{perro.raza}}</ion-card-subtitle>
           </ion-card-header>
           <img class="imagen" [src]="perro.image">
@@ -61,7 +61,8 @@
               <ion-text color="danger">{{perro.likes.number}}</ion-text>
               <ion-icon color="danger" name="heart"></ion-icon>
             </ion-button>
-            <ion-button (click)="compartir()" color="primary"><ion-icon name="share"></ion-icon></ion-button>
+            <!--<ion-button (click)="compartir()" color="primary"><ion-icon name="share"></ion-icon></ion-button>  -->
+            
           </ion-card-content>
           <h5 padding>Recuperado el: {{ formatoFecha(perro.fechaPerdido) }}</h5>
         </ion-card>

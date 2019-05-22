@@ -4,7 +4,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ModalController, ActionSheetController, AlertController } from '@ionic/angular';
 import { PlaceLocation } from '../location.model';
 import { environment } from '../../../../environments/environment';
-import { Plugins, Capacitor } from '@capacitor/core';
+import { Plugins, Capacitor } from '@capacitor/core'; 
  
 @Component({
   selector: 'app-location-picker',
@@ -81,14 +81,14 @@ export class LocationPickerComponent implements OnInit {
           lng: modalData.data.lng,
           staticMapImageUrl: null
         };
-        pickedLocation.staticMapImageUrl = this.getMapImage(pickedLocation.lat, pickedLocation.lng, 13);
+        pickedLocation.staticMapImageUrl = this.getMapImage(pickedLocation.lat, pickedLocation.lng, 14);
         this.isLoading = true;
         this.selectedLocationImage = pickedLocation.staticMapImageUrl;
         this.isLoading = false;
         this.locationPick.emit(pickedLocation);
         // console.log(modalData.data);  en .data estan los lat y lng
       });
-      modalEl.present();
+      modalEl.present(); 
     });
   }
 

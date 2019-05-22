@@ -121,6 +121,10 @@ export class Tab1Page implements OnInit {
   }
 
   obtenerAnuncios(mostrarModal: boolean) {
+    if (mostrarModal) {
+      this.getEstadoMisAnuncios();
+      this.getEstadoMisAnunciosResguardados();
+    }
     const filtroValue = this.selectKm;
     this.perrosPerdidosServicio.obtenerAnuncios(filtroValue).subscribe(datos => {
       console.log('Datos traidos del servicio', datos);
@@ -136,10 +140,7 @@ export class Tab1Page implements OnInit {
     }, () => {
       console.log('completado');
       this.listaLista = true;
-      if (mostrarModal) {
-        this.getEstadoMisAnuncios();
-        this.getEstadoMisAnunciosResguardados();
-      }
+      
     });
   }
 
