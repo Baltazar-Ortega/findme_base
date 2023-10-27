@@ -1,9 +1,5 @@
 # findme
 
-![Pasted image 20230118184533](https://user-images.githubusercontent.com/30305964/213331602-48522404-c100-4e23-9a14-aa127b7869a8.png)
-
-![Pasted image 20230118185735](https://user-images.githubusercontent.com/30305964/213331615-2ea6975d-ac85-4a07-9e19-4a0ed2b58079.png)
-
 
 ## App for finding nearby lost dogs
 
